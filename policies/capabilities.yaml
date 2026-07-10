@@ -1,0 +1,35 @@
+version: 1
+
+principals:
+  researcher:
+    allow:
+      - local.read.approved_sources
+      - local.write.generated_artifacts
+    deny:
+      - external.write.*
+      - github.write
+      - asana.*
+      - email.*
+      - calendar.*
+      - wordpress.*
+
+  technical-analyst:
+    allow:
+      - local.read.research_artifacts
+      - local.write.generated_artifacts
+    deny:
+      - external.write.*
+
+  identity-security-analyst:
+    allow:
+      - local.read.research_artifacts
+      - local.write.generated_artifacts
+    deny:
+      - external.write.*
+
+  skeptic:
+    allow:
+      - local.read.research_artifacts
+      - local.write.generated_artifacts
+    deny:
+      - external.write.*
