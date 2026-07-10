@@ -1,0 +1,27 @@
+# Secrets and local configuration
+.env
+.env.*
+*.key
+*.pem
+*.token
+
+# Gas City and runtime state
+.beads/
+.dolt/
+runtime/
+sessions/
+logs/
+
+# Generated or private artifacts
+artifacts/private/
+artifacts/generated/
+
+# Python and editor files
+__pycache__/
+*.pyc
+.vscode/
+.idea/
+
+# OS metadata
+.DS_Store
+Thumbs.db
