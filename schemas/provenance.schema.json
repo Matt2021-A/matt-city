@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Matt City Artifact Provenance",
+  "type": "object",
+  "required": [
+    "artifact_id",
+    "workflow_id",
+    "requested_by",
+    "performed_by",
+    "inputs",
+    "outputs"
+  ],
+  "properties": {
+    "artifact_id": {"type": "string"},
+    "workflow_id": {"type": "string"},
+    "requested_by": {"type": "string"},
+    "delegated_by": {"type": ["string", "null"]},
+    "performed_by": {"type": "string"},
+    "runtime_session": {"type": ["string", "null"]},
+    "provider": {"type": ["string", "null"]},
+    "inputs": {"type": "array", "items": {"type": "string"}},
+    "outputs": {"type": "array", "items": {"type": "string"}},
+    "capabilities_used": {"type": "array", "items": {"type": "string"}},
+    "external_identities_used": {"type": "array", "items": {"type": "string"}},
+    "approval": {
+      "type": "object",
+      "properties": {
+        "required": {"type": "boolean"},
+        "approved_by": {"type": ["string", "null"]}
+      },
+      "required": ["required"]
+    }
+  }
+}
