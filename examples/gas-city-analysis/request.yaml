@@ -1,0 +1,21 @@
+request_id: research-001
+requested_by: matthew
+
+topic: Gas City identity and attribution architecture
+
+sources:
+  - https://github.com/gastownhall/gascity/
+  - https://steve-yegge.medium.com/welcome-to-gas-city-57f564bb3607
+
+questions:
+  - How do agents exchange durable context?
+  - What identity does each agent use?
+  - How should delegated external actions be attributed?
+  - Which capabilities are native to Gas City?
+  - Which capabilities would Matt City need to add?
+
+constraints:
+  external_writes: false
+  use_primary_sources: true
+  preserve_source_references: true
+  human_review_required: true
