@@ -88,7 +88,14 @@ The Phase 1 branch now includes native directories for:
 
 The older top-level Markdown files under `city/agents/` are design notes only. They are not executable Gas City configuration.
 
-Provider aliases referenced by `agent.toml` must be registered in the runtime city's `city.toml`. The committed Phase 1 configs currently reference `claude` and must be validated against the installed provider catalog.
+Provider aliases referenced by `agent.toml` must be registered in the runtime city's `city.toml`. The committed Phase 1 configs reference `codex`, Gas City's built-in OpenAI Codex CLI harness. The runtime must register it as:
+
+```toml
+[providers.codex]
+base = "builtin:codex"
+```
+
+The installed Codex CLI and its OpenAI authentication must be validated in WSL. Selecting the Codex provider does not grant specialist agents another principal's GitHub, Asana, email, calendar, or publishing connections.
 
 ## Communication and context
 
@@ -186,7 +193,7 @@ Not yet demonstrated:
 - Gas City installed under Ubuntu WSL
 - city initialized and supervisor running
 - rig registered
-- provider aliases validated
+- Codex provider alias and authentication validated
 - agent prompts loaded by `gc prime`
 - formula compiled by `gc formula show`
 - workflow cooked or slung
@@ -201,7 +208,8 @@ Phase 1 is complete only after the installed Gas City version demonstrates:
 - city initialization under Ubuntu WSL
 - Matt City rig registration
 - native agent discovery and prompt loading
-- provider registration in `city.toml`
+- Codex provider registration in `city.toml`
+- Codex CLI authentication under the intended execution principal
 - successful v2 formula compilation
 - workflow execution with correct dependencies
 - durable bead state across session replacement
