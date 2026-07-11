@@ -28,7 +28,6 @@ Canonical project links:
 
 - [Matt City Asana project](https://app.asana.com/1/1204112251101459/project/1216444827581484)
 - [Matt City GitHub repository](https://github.com/Matt2021-A/matt-city)
-- [Phase 1 draft pull request](https://github.com/Matt2021-A/matt-city/pull/1)
 
 ## Architecture
 
