@@ -1,37 +1,54 @@
-# Phase 1 workflow skeleton.
-# Gas City-specific execution fields will be validated after installation in WSL.
+formula = "research-topic"
+description = "Produce a sourced, read-only research and analysis package linked to an Asana work object."
 
-[formula]
-name = "research-topic"
-description = "Produce a sourced, read-only research and analysis package."
+[requires]
+formula_compiler = ">=2.0.0"
+
+[vars.request_id]
+description = "Matt City request identifier"
+required = true
+
+[vars.asana_project_gid]
+description = "Originating Asana project GID"
+required = true
+
+[vars.asana_task_gid]
+description = "Originating Asana task GID"
+required = true
+
+[vars.request_path]
+description = "Path to the approved request package inside the rig"
+required = true
 
 [[steps]]
 id = "research"
-agent = "researcher"
-input = "requests/{{request_id}}.yaml"
-output = "artifacts/generated/{{request_id}}/findings.yaml"
+title = "Collect and normalize sources for {{request_id}}"
+description = "Read {{request_path}}. Produce a source inventory and evidence-backed findings. Preserve the originating Asana project {{asana_project_gid}} and task {{asana_task_gid}} in artifact metadata."
 
 [[steps]]
 id = "technical-analysis"
-agent = "technical-analyst"
+title = "Produce technical analysis for {{request_id}}"
+description = "Use the approved research findings to explain architecture, components, dependencies, operational behavior, and technical unknowns."
 needs = ["research"]
-input = "artifacts/generated/{{request_id}}/findings.yaml"
-output = "artifacts/generated/{{request_id}}/technical-analysis.md"
 
 [[steps]]
 id = "identity-security-analysis"
-agent = "identity-security-analyst"
+title = "Produce identity and security analysis for {{request_id}}"
+description = "Evaluate principals, authentication, authorization, credentials, delegation, provenance, approval boundaries, and blast radius."
 needs = ["research", "technical-analysis"]
-output = "artifacts/generated/{{request_id}}/identity-security-analysis.md"
 
 [[steps]]
 id = "skeptical-review"
-agent = "skeptic"
+title = "Challenge the analysis for {{request_id}}"
+description = "Identify unsupported claims, hidden assumptions, missing evidence, alternative interpretations, and required verification."
 needs = ["research", "technical-analysis", "identity-security-analysis"]
-output = "artifacts/generated/{{request_id}}/skeptic-review.md"
 
 [[steps]]
-id = "human-gate"
-type = "wait"
-needs = ["skeptical-review"]
-reason = "Matthew reviews the complete evidence package before downstream use."
+id = "package-artifacts"
+title = "Package artifacts and provenance for {{request_id}}"
+description = "Create the final artifact index and provenance record. Include the Asana project and task GIDs, Gas City workflow and bead identifiers, agents and sessions used, providers, inputs, outputs, capabilities, and approval state. Do not perform external writes."
+needs = ["research", "technical-analysis", "identity-security-analysis", "skeptical-review"]
+
+[steps.retry]
+max_attempts = 2
+on_exhausted = "hard_fail"

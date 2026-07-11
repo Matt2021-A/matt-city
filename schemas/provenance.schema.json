@@ -2,33 +2,74 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Matt City Artifact Provenance",
   "type": "object",
+  "additionalProperties": false,
   "required": [
     "artifact_id",
-    "workflow_id",
+    "asana",
+    "gas_city",
     "requested_by",
     "performed_by",
     "inputs",
-    "outputs"
+    "outputs",
+    "approval"
   ],
   "properties": {
-    "artifact_id": {"type": "string"},
-    "workflow_id": {"type": "string"},
-    "requested_by": {"type": "string"},
+    "artifact_id": {"type": "string", "minLength": 1},
+    "asana": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["project_gid", "task_gid"],
+      "properties": {
+        "project_gid": {"type": "string", "minLength": 1},
+        "task_gid": {"type": "string", "minLength": 1},
+        "approval_task_gid": {"type": ["string", "null"]}
+      }
+    },
+    "gas_city": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["city", "rig", "formula", "workflow_id"],
+      "properties": {
+        "city": {"type": "string", "minLength": 1},
+        "rig": {"type": "string", "minLength": 1},
+        "formula": {"type": "string", "minLength": 1},
+        "workflow_id": {"type": "string", "minLength": 1},
+        "convoy_id": {"type": ["string", "null"]},
+        "root_bead_id": {"type": ["string", "null"]},
+        "bead_ids": {"type": "array", "items": {"type": "string"}},
+        "event_ids": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "requested_by": {"type": "string", "minLength": 1},
     "delegated_by": {"type": ["string", "null"]},
-    "performed_by": {"type": "string"},
-    "runtime_session": {"type": ["string", "null"]},
-    "provider": {"type": ["string", "null"]},
+    "performed_by": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["agent"],
+        "properties": {
+          "agent": {"type": "string", "minLength": 1},
+          "session_id": {"type": ["string", "null"]},
+          "provider": {"type": ["string", "null"]},
+          "contribution": {"type": ["string", "null"]}
+        }
+      }
+    },
     "inputs": {"type": "array", "items": {"type": "string"}},
     "outputs": {"type": "array", "items": {"type": "string"}},
     "capabilities_used": {"type": "array", "items": {"type": "string"}},
     "external_identities_used": {"type": "array", "items": {"type": "string"}},
     "approval": {
       "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "state"],
       "properties": {
         "required": {"type": "boolean"},
-        "approved_by": {"type": ["string", "null"]}
-      },
-      "required": ["required"]
+        "state": {"enum": ["not_required", "pending", "approved", "rejected", "changes_requested"]},
+        "approved_by": {"type": ["string", "null"]},
+        "approved_at": {"type": ["string", "null"], "format": "date-time"}
+      }
     }
   }
 }

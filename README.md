@@ -2,242 +2,263 @@
 
 Matt City is a personal, identity-aware multi-agent operating environment for research, technical analysis, writing, career work, content development, and other repeatable knowledge workflows.
 
-It is designed around five principles:
+It is built around six principles:
 
-1. **Durable work** rather than disposable chat sessions.
-2. **Separate identities** for Matthew, the primary assistant, specialized agents, runtimes, and service principals.
-3. **Bounded context** so each agent receives only the information required for its task.
-4. **Explicit authority** so no agent inherits another principal's connections, permissions, or credentials.
-5. **Reconstructable attribution** for every artifact, delegation, approval, and external action.
+1. **All human-visible work exists in Asana.**
+2. **Gas City provides durable machine execution.**
+3. **GitHub holds versioned implementation and approved artifacts.**
+4. **Every principal keeps a separate identity and authority boundary.**
+5. **Context is deliberately packaged, not ambiently shared.**
+6. **Every action and artifact is reconstructably attributable.**
 
-Matt City is not intended to replace Matthew's judgment or the primary assistant relationship. It provides the workflow, context, policy, and provenance infrastructure beneath that collaboration.
+Matt City does not replace Matthew's judgment or the primary-assistant relationship. It provides the workflow, policy, context, and provenance infrastructure beneath that collaboration.
 
-## Project vision
+## Systems of record
 
-The long-term goal is to turn recurring methods into reusable, inspectable workflows without collapsing every participant into an unaccountable identity called "AI."
+| System | Role |
+|---|---|
+| **Asana** | Canonical human work, context, decisions, approvals, status, and history |
+| **Gas City** | Machine orchestration, formulas, Beads, dependencies, agents, sessions, orders, and events |
+| **GitHub** | Versioned prompts, formulas, schemas, policies, code, documentation, and approved artifacts |
+| **Context layer** | Governed retrieval from relevant Asana work and approved linked artifacts |
+| **Primary assistant** | Interpretation, context selection, delegation, synthesis, and mediated external actions under its own identities |
+| **Matthew** | Direction, ownership, judgment, and approval |
+
+Canonical project links:
+
+- [Matt City Asana project](https://app.asana.com/1/1204112251101459/project/1216444827581484)
+- [Matt City GitHub repository](https://github.com/Matt2021-A/matt-city)
+- [Phase 1 draft pull request](https://github.com/Matt2021-A/matt-city/pull/1)
+
+## Architecture
 
 ```text
 Matthew
+   │ creates, directs, reviews, and approves work
+   ▼
+ASANA
+   canonical work and context plane
+   │
+   ├──────────────► Primary Assistant
+   │                 interprets intent, retrieves context,
+   │                 delegates, synthesizes, and returns results
    │
    ▼
-Primary Assistant
-   │ interprets intent, selects context, delegates, and synthesizes
+GAS CITY
+   formulas, Beads, dependencies, agents, sessions, orders, events
+   │
+   ├──────────────► Specialized Agents
+   │                 bounded research, analysis, review, and writing roles
+   │
+   └──────────────► Context Packages
+                     approved task context and linked artifacts only
+   │
    ▼
-Gas City Control Plane
-   │ formulas, beads, dependencies, sessions, orders, and events
-   ├──────────────────────┐
-   ▼                      ▼
-Specialized Agents       Context Layer
-   │                      │
-   └──────────┬───────────┘
-              ▼
-     Policy and Connection Boundary
-              │
-              ▼
- GitHub, Asana, Drive, WordPress, web, local files, and other systems
+ARTIFACT + PROVENANCE LAYER
+   │
+   ▼
+GITHUB
+   versioned implementation and approved outputs
+   │
+   ▼
+ASANA
+   links, findings, decisions, blockers, approvals, and final status
 ```
 
-## Core architecture
+## Work-object model
 
-### 1. Human and primary-assistant layer
+Matt City deliberately separates human work objects from machine execution objects.
 
-Matthew remains the human owner, decision-maker, and approval authority.
+| Object | Meaning |
+|---|---|
+| **Asana project** | Human-visible program or persistent context boundary |
+| **Asana task** | Canonical human request, decision, review, or approval object |
+| **Gas City formula** | Reusable method that materializes machine work |
+| **Gas City workflow** | Formula-generated v2 graph |
+| **Root and step Beads** | Durable machine work objects and dependency state |
+| **Gas City convoy** | Tracking container for ordinary slung work; not a synonym for every workflow |
+| **Agent session** | Replaceable live process performing bounded work |
+| **GitHub artifact** | Versioned configuration, schema, policy, implementation, or approved output |
+| **Provenance record** | Link among the Asana task, Gas City objects, agents, sessions, identities, artifacts, and approvals |
 
-The primary assistant is a separate principal and collaborator. It may:
+Every Gas City workflow must reference an originating Asana task. Every meaningful output must return or link back to that task.
 
-- Interpret Matthew's request
-- Select or create a workflow
-- Assemble relevant context
-- Delegate bounded work
-- Reconcile conflicting agent outputs
-- Use only its own granted connections
-- Present results to Matthew
-- Request approval for consequential actions
+## Identity and authority
 
-The primary assistant is not impersonating Matthew, and local Gas City agents are not impersonating the primary assistant.
+Matthew, the primary assistant, Gas City agents, runtime sessions, and target-system principals are separate actors.
 
-### 2. Gas City control plane
+Current examples:
 
-Gas City provides the orchestration substrate:
+- Matthew owns the Matt City Asana project.
+- `ChatGPT AI Agent Bot - MattR` is a separate Asana member.
+- Matthew owns or administers the GitHub repository.
+- `ChatGPTBot-MattR` is a separate GitHub principal with granted access.
+- Local Gas City agents inherit neither Asana nor GitHub access.
 
-- Formulas for repeatable methods
-- Beads for durable work
-- Dependencies and gates
-- Agent sessions and runtime providers
-- Orders and event-driven execution
-- Retries, waits, and health supervision
-- Rigs for project-level isolation
-- Packs for reusable configuration
+The governing rule is:
 
-Gas City coordinates Matt City workflows. It does not, by itself, provide the complete context, identity-governance, policy, or external-connection architecture described here.
+> Agents may inherit work. They do not inherit another principal's identity, authority, connections, credentials, permissions, or unrelated context.
 
-### 3. Specialized agent layer
+Consequential external actions must be performed by the principal that actually owns the connection, with Matthew's approval where required.
 
-Agents are defined around bounded functions rather than fictional job titles.
+## Context architecture
 
-Planned agent roles include:
-
-- **Context Agent**: identifies relevant prior work, decisions, preferences, and constraints
-- **Research Agent**: gathers and normalizes evidence
-- **Technical Analyst**: explains architecture, components, dependencies, and operational behavior
-- **Identity and Security Analyst**: evaluates identity, authorization, credentials, governance, attribution, and blast radius
-- **Skeptic**: challenges unsupported claims, assumptions, and weak reasoning
-- **Writing Agent**: drafts from approved analysis
-- **Matt Voice Reviewer**: checks tone, structure, hype, artificial phrasing, and known writing preferences
-
-Agents may exchange durable artifacts and task-linked messages. They do not receive universal shared context or ambient authority.
-
-### 4. Context layer
-
-Context is separated into four scopes:
+Context is divided into four scopes:
 
 ```text
 Global context
-├── Stable profile
-├── Writing preferences
-├── Professional background
-└── Standing decision criteria
+├── stable profile
+├── writing preferences
+├── professional background
+└── standing decision criteria
 
 Domain context
-├── Identity and security
+├── identity and security
 ├── AI agents
-├── Quantum computing
-├── Technical marketing
-└── Career
+├── quantum computing
+├── technical marketing
+└── career
 
 Project context
-├── Current article
-├── Current application
-├── Current research program
-└── Current business initiative
+├── Asana project description and status
+├── project decisions and links
+├── approved project artifacts
+└── related project references
 
 Task context
-├── Approved sources
-├── Current questions
-├── Acceptance criteria
-└── Required outputs
+├── objective and acceptance criteria
+├── comments and decisions
+├── approved sources
+└── required outputs
 ```
 
-Each agent receives the minimum useful context package. Sensitive or unrelated context is not automatically shared across workflows.
+Agents do not share ambient memory or direct references. They coordinate through Gas City's store-mediated mechanisms such as slung work, mail, hooks, Beads, and artifacts.
 
-### 5. Policy and connection boundary
+## Gas City implementation
 
-External systems are accessed only through explicitly granted identities and capabilities.
+Official implementation authority:
 
-Examples:
+- [Gas City documentation](https://docs.gascity.com/)
+- [Gas City documentation index for language models](https://docs.gascity.com/llms.txt)
+- [Gas City GitHub repository](https://github.com/gastownhall/gascity/)
+- [Welcome to Gas City](https://steve-yegge.medium.com/welcome-to-gas-city-57f564bb3607)
 
-- Matthew's GitHub identity owns or administers resources.
-- `ChatGPTBot-MattR` is a separate GitHub principal with its own granted repository access.
-- A future Matt City GitHub App, Asana identity, or WordPress identity would also be separate principals.
-- Specialized agents do not inherit those identities because they received delegated work.
+Matt City uses the documented Gas City model:
 
-A connection or policy layer will evaluate:
+- Cities contain registered rigs.
+- Custom agents use `agents/<name>/agent.toml` and `prompt.template.md`.
+- Formulas use the v2 TOML contract.
+- Formula steps materialize into durable Beads with dependency edges.
+- Sessions are replaceable live processes.
+- Orders and events support later automation and observation.
+- The Beads store remains separate from Asana's human work plane.
 
-- Requesting principal
-- Delegating workflow
-- Requested capability
-- Target resource
-- Executing identity
-- Required approval
-- Result and provenance
+See [Gas City Documentation Alignment](docs/gas-city-alignment.md) for the detailed mapping and runtime acceptance criteria.
 
-### 6. Artifact and provenance layer
+## Native Phase 1 agents
 
-Every meaningful artifact should record:
+The branch includes native Gas City scaffolds for:
 
-- Resource owner
-- Work initiator
-- Delegating principal
-- Performing agent
-- Runtime session and provider
-- Inputs and outputs
-- Capabilities used
-- External identity used, if any
-- Human approval, when required
+- `researcher`
+- `technical-analyst`
+- `identity-security-analyst`
+- `skeptic`
 
-The intended attribution chain is:
+Each uses:
 
 ```text
-Matthew initiated the work.
-The primary assistant interpreted or delegated it.
-A specialized agent performed bounded analysis.
-A specific runtime executed that agent.
-A specific target-system identity performed any external action.
-Matthew approved the action where required.
+city/agents/<agent-name>/agent.toml
+city/agents/<agent-name>/prompt.template.md
 ```
 
-## Rigs and workstreams
+The older top-level Markdown role files are retained as design history only.
 
-Matt City is expected to grow into separate rigs with distinct context and access boundaries.
+## Phase 1: Asana-linked research workflow
 
-### Career rig
+Phase 1 implements one read-only workflow under Ubuntu WSL:
 
-- Role discovery and evaluation
-- Company research
-- Resume alignment
-- Cover letters
-- Interview preparation
-- Application and feedback analysis
+1. An Asana task supplies the objective, approved sources, questions, and acceptance criteria.
+2. The primary assistant creates a structured request linked to that task.
+3. Gas City materializes the `research-topic` formula.
+4. Bounded agents produce research, technical analysis, identity and security analysis, and skeptical review.
+5. The workflow packages artifacts and provenance.
+6. The authorized assistant returns the outputs to Asana.
+7. Matthew reviews and approves any downstream use.
 
-### TechThatMattRs rig
+The formula requires:
 
-- Topic intake
-- Technical research
-- Identity and security analysis
-- Article development
-- Editorial review
-- Distribution planning
+- `request_id`
+- `asana_project_gid`
+- `asana_task_gid`
+- `request_path`
 
-### Social rig
+Human approval is not represented as an invented Gas City wait step. The machine workflow packages its output, then the human approval process occurs in Asana.
 
-- LinkedIn
-- Mastodon
-- GitHub presence
-- Replies, reposts, and campaign sequencing
+## Phase 1 trust boundary
 
-### Business rig
+Local specialist agents receive only the local access required to read approved inputs and write generated artifacts.
 
-- Matt & Jody Co planning
-- Operations
-- Research
-- Administration
+They receive no:
 
-### Creative rig
+- Asana credentials
+- GitHub credentials
+- email or calendar credentials
+- WordPress credentials
+- inherited assistant connections
+- unrelated private context
 
-- Songs
-- Poetry
-- Image-driven concepts
-- Experimental writing
+The initial lab may use the documented file Beads backend to validate behavior. The default `bd` and Dolt data plane must be tested before the system is treated as durable production infrastructure.
 
-The creative rig should remain lightly orchestrated. Not every useful idea needs a workflow diagram and a quarterly business review.
+## Phase 1 runtime acceptance
 
-## Human approval model
+The scaffold is documentation-aligned, but it is not yet runtime-proven. Phase 1 completes only when Ubuntu WSL demonstrates:
 
-Actions are grouped into three operational tiers.
+- Gas City installation and version capture
+- city initialization and supervisor operation
+- Matt City rig registration
+- provider registration in `city.toml`
+- native agent discovery and prompt loading
+- successful v2 formula compilation
+- correct dependency and retry behavior
+- session replacement without lost Bead state
+- real workflow, Bead, convoy where applicable, session, and event identifiers
+- provenance linked to the originating Asana project and task
+- outputs returned to Asana
+- no specialist-agent external writes
+
+## Provenance model
+
+Every meaningful artifact records:
+
+- Asana project GID
+- Asana task GID
+- optional Asana approval task GID
+- Gas City city, rig, formula, and workflow ID
+- optional convoy and root Bead IDs
+- Bead and event IDs
+- requester and delegator
+- contributing agents, sessions, providers, and contributions
+- inputs and outputs
+- capabilities used
+- external identities used
+- approval state and approver
+
+## Human approval tiers
 
 ### Tier 1: autonomous, read-only, and reversible
 
-Examples:
-
-- Read approved sources
+- Read approved task context and linked sources
 - Analyze documents
-- Compare job descriptions
 - Produce research artifacts
-- Draft content locally
+- Draft locally
 
 ### Tier 2: assistant-mediated
 
-Examples:
-
-- Create an internal draft
-- Update a known workflow record
-- Attach an artifact to an approved project
-
-These actions must be performed by the identity that actually holds access.
+- Update the originating Asana task
+- Link approved artifacts
+- Create internal drafts using the assistant's own identity
 
 ### Tier 3: Matthew approval required
-
-Examples:
 
 - Send email
 - Publish content
@@ -247,59 +268,59 @@ Examples:
 - Change permissions
 - Make financial or legal commitments
 
-## Implementation roadmap
+## Planned rigs and workstreams
 
-### Phase 1: trustworthy research workflow
+### TechThatMattRs
 
-Build one read-only research workflow in Ubuntu WSL using Gas City.
+- topic intake
+- technical research
+- identity and security analysis
+- article development
+- editorial review
+- distribution planning
 
-The workflow accepts a topic, approved sources, and questions, then produces:
+The first planned content acceptance test is [Building Matt City: An Identity-Aware Multi-Agent Work System](https://app.asana.com/1/1204112251101459/project/1213500168987836/task/1216445335991016).
 
-1. A source and findings package
-2. A technical analysis
-3. An identity and security analysis
-4. A skeptical review
-5. A provenance record
-6. A human review gate for Matthew
+### Career
 
-Phase 1 agents receive local file access only. They receive no GitHub, Asana, email, calendar, WordPress, or other external credentials.
+- role discovery and evaluation
+- company research
+- resume alignment
+- cover letters
+- interview preparation
+- application and feedback analysis
 
-### Phase 2: Matt context layer
+### Social
 
-Add structured repositories and retrieval for:
+- LinkedIn
+- Mastodon
+- GitHub presence
+- replies, reposts, and campaign sequencing
 
-- Writing preferences
-- Professional profile
-- Prior research
-- Published work
-- Decisions and superseded guidance
-- Domain-specific knowledge
+### Business
 
-### Phase 3: article development
+- Matt & Jody Co planning
+- operations
+- research
+- administration
 
-Add writing and Matt Voice review after Matthew selects the approved angle.
+### Creative
 
-### Phase 4: career workflows
+- songs
+- poetry
+- image-driven concepts
+- experimental writing
 
-Add job evaluation, company research, fit analysis, application preparation, and feedback tracking.
+The creative rig remains lightly orchestrated. Not every useful idea needs a dependency graph and a quarterly review.
 
-### Phase 5: external integrations
+## Roadmap
 
-Add separately governed identities one at a time, beginning with low-risk draft or tracking operations.
-
-### Phase 6: policy enforcement and operations
-
-Add formal capability checks, approval flows, audit events, cost tracking, health monitoring, and workflow dashboards.
-
-## Phase 1 security constraints
-
-- No autonomous publishing or messaging
-- No email, calendar, Asana, WordPress, or GitHub writes by local agents
-- No inherited credentials between principals
-- No agent impersonation
-- No bulk ingestion of private conversation history
-- No secrets or runtime state committed to Git
-- Human review before downstream use
+1. **Phase 1:** Asana-linked read-only research workflow
+2. **Phase 2:** Asana-first context retrieval
+3. **Phase 3:** TechThatMattRs content workflow
+4. **Phase 4:** Career workflows
+5. **Phase 5:** Governed external integrations
+6. **Phase 6:** Capability policy, observability, recovery, cost, and operations
 
 ## Repository map
 
@@ -309,6 +330,7 @@ matt-city/
 ├── docs/
 │   ├── architecture.md
 │   ├── identity-model.md
+│   ├── gas-city-alignment.md
 │   └── phase-1-scope.md
 ├── city/
 │   ├── agents/
@@ -320,17 +342,6 @@ matt-city/
 └── artifacts/
 ```
 
-- `docs/` contains architecture, scope, and design decisions
-- `city/agents/` contains bounded agent definitions
-- `city/formulas/` contains workflow definitions
-- `schemas/` contains artifact and provenance contracts
-- `policies/` contains capability and approval rules
-- `context/` will contain governed context definitions and indexes
-- `examples/` contains safe test inputs and fixtures
-- `artifacts/` is reserved for approved outputs; generated or private runtime artifacts remain excluded from Git
+## Status
 
-## Governing principle
-
-> Agents may inherit tasks. They do not inherit another principal's identity, authority, connections, context, or permissions.
-
-Matt City succeeds only if work can move between people and agents while identity, authority, context, and attribution remain distinct and visible.
+The branch is now aligned to the official Gas City documentation at the configuration and architecture level. It remains **unvalidated in a live Gas City runtime** until the WSL acceptance tests are completed.
