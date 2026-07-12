@@ -2,18 +2,22 @@
 
 This review records the Phase 1 design implications of the wider `gastownhall` ecosystem. It is not a blanket endorsement or an instruction to import every component. Each repository is evaluated for what it contributes to Matt City and what remains outside scope.
 
-## Repositories reviewed
+## Maintained disposition register
 
-- `gastownhall/gascity`
-- `gastownhall/gascity-packs`
-- `gastownhall/beads`
-- `gastownhall/homebrew-beads`
-- `gastownhall/homebrew-gascity`
-- `gastownhall/wasteland`
-- `gastownhall/gascity-project-dashboard`
-- `gastownhall/gascity-dashboard`
-- `gastownhall/dolt`
-- `gastownhall/gascity-otel`
+| Repository | Current disposition | Why |
+|---|---|---|
+| `gastownhall/gascity` | Adopt now | Authoritative orchestration, formula v2, routing, sessions, supervisor, and event model. |
+| `gastownhall/gascity-packs` | Validate next | Strongest precedent for coordinator/run-operator launch and rig-scoped workers. |
+| `gastownhall/beads` | Validate next | Durable dependency-aware work model, Codex setup, claim behavior, backup, and storage guidance. |
+| `gastownhall/dolt` | Validate next | Intended durable storage foundation after non-destructive migration testing. |
+| `gastownhall/homebrew-gascity` | Monitor upstream | Package-version provenance for the installed `gc` binary. |
+| `gastownhall/homebrew-beads` | Adopt packaging guidance | Old tap is deprecated; local install should resolve to Homebrew core `beads`. |
+| `gastownhall/gascity-project-dashboard` | Defer | Useful reporting pattern, but not a Phase 1 routing solution. |
+| `gastownhall/gascity-dashboard` | Defer | Valuable operator surface after workflow execution is proven. |
+| `gastownhall/gascity-otel` | Defer | Useful later, but prompt and tool-content capture require a privacy policy first. |
+| `gastownhall/wasteland` | Defer | Governance patterns are relevant; federation is outside Phase 1. |
+
+The detailed implementation and validation actions are maintained in [Supplemental Gas City Ecosystem Alignment Plan](upstream-alignment-plan.md).
 
 ## Gas City core
 
@@ -66,7 +70,8 @@ Matt City implication:
 - embedded Dolt is the likely next durable Phase 1 target;
 - server mode should be considered later for multiple concurrent writers or multi-machine operation;
 - migration should use supported backup and restore paths rather than deleting legacy stores;
-- `.beads/issues.jsonl` is interchange data, not a complete restorable database backup.
+- `.beads/issues.jsonl` is interchange data, not a complete restorable database backup;
+- verify `bd setup codex`, `bd ready`, and atomic claim behavior against the installed version.
 
 The first migration attempt must preserve both legacy `.beads/dolt` and `.beads/embeddeddolt` directories until exports are reviewed and a target store is validated.
 
@@ -80,7 +85,7 @@ Matt City implication:
 
 - the Gas City routing warning is not explained by being behind the supported Homebrew Gas City release;
 - verify that the installed `bd` binary comes from Homebrew core `beads`, not an obsolete tap path;
-- continue recording both the standalone Beads version and the Beads library version linked into `gc` because the runtime has already reported drift.
+- continue recording both the standalone Beads version and the Beads library behavior linked into `gc` because the runtime has already reported drift.
 
 ## Wasteland
 
@@ -156,7 +161,7 @@ Primary assistant
      through its own authenticated principals
 
 Verified Gas City coordinator / run operator
-  → launches the v2 workflow from a rig-store work object
+  → launches the v2 workflow from a work object in the store read by the worker
 
 Gas City orchestrator
   → evaluates dependencies, retries, control Beads, and gc.run_target
@@ -174,17 +179,7 @@ GitHub
   → versioned formulas, prompts, policy, documentation, and approved artifacts
 ```
 
-## Decisions for PR #7
-
-Included now:
-
-- replace configured-agent `assignee` values with `gc.run_target`;
-- document the correct store-scope and launch model;
-- preserve the failed workflow as evidence;
-- prohibit manual forced cross-store routing for the replacement smoke test;
-- record the wider upstream findings and open gates.
-
-Deferred until validated locally:
+## Deferred until validated locally
 
 - importing a specific upstream coordinator role;
 - changing the active Beads backend;
