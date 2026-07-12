@@ -1,3 +1,4 @@
 scope = "rig"
 provider = "codex"
+fallback = true
 description = "Evaluate principals, authentication, authorization, delegation, attribution, context exposure, and blast radius."
