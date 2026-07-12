@@ -1,3 +1,4 @@
 scope = "rig"
 provider = "codex"
+fallback = true
 description = "Analyze architecture, dependencies, operational behavior, and technical unknowns from approved evidence."
