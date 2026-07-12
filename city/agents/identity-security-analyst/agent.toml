@@ -1,1 +1,3 @@
+scope = "rig"
 provider = "codex"
+description = "Evaluate principals, authentication, authorization, delegation, attribution, context exposure, and blast radius."
