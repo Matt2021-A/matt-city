@@ -1,3 +1,4 @@
 scope = "rig"
 provider = "codex"
+fallback = true
 description = "Challenge unsupported claims, hidden assumptions, stale evidence, and security blind spots."
