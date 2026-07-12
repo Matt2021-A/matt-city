@@ -1,0 +1,11 @@
+[workspace]
+provider = "codex"
+
+[providers.codex]
+base = "builtin:codex"
+
+# Phase 1 uses the file backend because Gas City 1.3.4 and Beads 1.1.0
+# reproduced the schema-migration failure tracked in gastownhall/beads#4566
+# during clean Dolt-backed rig initialization.
+[beads]
+provider = "file"
