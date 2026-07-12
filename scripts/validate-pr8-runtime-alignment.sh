@@ -48,8 +48,10 @@ done
 
 FORMULA_JSON="$(gc --rig "$RIG" formula show "$FORMULA" --json)"
 
-jq -e '.contract == "graph.v2" or .recipe.contract == "graph.v2"' <<<"$FORMULA_JSON" >/dev/null \
-  || fail "formula is not graph.v2"
+jq -e '
+  [.. | objects | .contract? | select(. == "graph.v2")]
+  | length > 0
+' <<<"$FORMULA_JSON" >/dev/null || fail "formula is not graph.v2"
 
 jq -e '
   [.. | objects | select(has("metadata")) | .metadata["gc.run_target"]? | select(. != null)]
