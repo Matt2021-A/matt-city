@@ -1,3 +1,4 @@
 scope = "rig"
 provider = "codex"
+fallback = true
 description = "Collect and normalize evidence from approved sources for Matt City research workflows."
