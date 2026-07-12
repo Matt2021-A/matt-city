@@ -1,0 +1,20 @@
+[pack]
+name = "matt-city"
+schema = 2
+description = "Identity-aware, Asana-linked research and analysis agents and workflows for the Matt City rig."
+
+[[pack.requires]]
+scope = "rig"
+agent = "researcher"
+
+[[pack.requires]]
+scope = "rig"
+agent = "technical-analyst"
+
+[[pack.requires]]
+scope = "rig"
+agent = "identity-security-analyst"
+
+[[pack.requires]]
+scope = "rig"
+agent = "skeptic"
