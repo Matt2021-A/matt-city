@@ -18,3 +18,9 @@ agent = "identity-security-analyst"
 [[pack.requires]]
 scope = "rig"
 agent = "skeptic"
+
+# The research workflow is target-required and must launch through a concrete
+# rig-local operator. The upstream gascity/roles import supplies this target.
+[[pack.requires]]
+scope = "rig"
+agent = "gc.run-operator"
