@@ -22,4 +22,4 @@ source = "/home/matt/src/matt-city/city"
 # supported target-plus-formula launch pattern. Run `gc import install`
 # after adding or changing this import and verify the resolved target before use.
 [rigs.imports.gc]
-source = "https://github.com/gastownhall/gascity-packs.git//gascity/roles"
+source = "https://github.com/gastownhall/gascity-packs/tree/main/gascity/roles"
