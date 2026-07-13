@@ -14,12 +14,7 @@ provider = "file"
 name = "matt-city"
 default_branch = "main"
 
-# Hand-authored Matt City agents and research workflow.
+# Hand-authored Matt City agents, including the rig-local run operator,
+# and the bounded research workflow.
 [rigs.imports.matt]
 source = "/home/matt/src/matt-city/city"
-
-# Upstream rig-local role workers. This provides gc.run-operator for the
-# supported target-plus-formula launch pattern. Run `gc import install`
-# after adding or changing this import and verify the resolved target before use.
-[rigs.imports.gc]
-source = "https://github.com/gastownhall/gascity-packs/tree/main/gascity/roles"
