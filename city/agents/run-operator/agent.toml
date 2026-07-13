@@ -1,0 +1,4 @@
+scope = "rig"
+provider = "codex"
+fallback = true
+description = "Launch and supervise bounded Matt City graph.v2 workflows without external-system access."
