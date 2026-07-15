@@ -1,6 +1,5 @@
 formula = "research-topic"
 version = 1
-contract = "graph.v2"
 target_required = true
 description = "Produce a sourced, read-only research and analysis package linked to an Asana work object."
 
