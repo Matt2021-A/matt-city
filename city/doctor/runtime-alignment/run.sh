@@ -8,6 +8,9 @@ fail() {
 
 command -v jq >/dev/null 2>&1 || fail "jq not found"
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+FORMULA_FILE="$(cd "$SCRIPT_DIR/../.." && pwd)/formulas/research-topic.toml"
+
 CONFIG_ERR="$(mktemp)"
 trap 'rm -f "$CONFIG_ERR"' EXIT
 
@@ -31,10 +34,12 @@ for target in \
   grep -Fq "$target" <<<"$AGENTS" || fail "required target not discovered: $target"
 done
 
-FORMULA_JSON="$(gc formula show research-topic --json)"
-jq -e '[.. | objects | .contract? | select(. == "graph.v2")] | length > 0' \
-  <<<"$FORMULA_JSON" >/dev/null || fail "research-topic is not graph.v2"
+[ -f "$FORMULA_FILE" ] || fail "research-topic formula source not found"
+grep -Fq '[requires]' "$FORMULA_FILE" || fail "research-topic is missing [requires]"
+grep -Fq 'formula_compiler = ">=2.0.0"' "$FORMULA_FILE" \
+  || fail "research-topic does not require formula compiler v2"
 
+FORMULA_JSON="$(gc formula show research-topic --json)"
 jq -e '[.. | objects | select(has("metadata")) | .metadata["gc.run_target"]? | select(. != null)] | length >= 5' \
   <<<"$FORMULA_JSON" >/dev/null || fail "compiled gc.run_target metadata is incomplete"
 
@@ -49,4 +54,4 @@ for agent in \
   grep -Fq 'gc.outcome=pass' <<<"$PRIME" || fail "outcome protocol missing from $agent"
 done
 
-printf 'required local operator, workers, graph.v2 routes, and claim lifecycle are present\n'
+printf 'required local operator, workers, formula-v2 routes, and claim lifecycle are present\n'
