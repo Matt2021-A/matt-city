@@ -23,7 +23,7 @@ fi
 
 AGENTS="$(gc agent list)"
 for target in \
-  'gc.run-operator' \
+  'matt-city/matt.run-operator' \
   'matt-city/matt.researcher' \
   'matt-city/matt.technical-analyst' \
   'matt-city/matt.identity-security-analyst' \
@@ -39,6 +39,7 @@ jq -e '[.. | objects | select(has("metadata")) | .metadata["gc.run_target"]? | s
   <<<"$FORMULA_JSON" >/dev/null || fail "compiled gc.run_target metadata is incomplete"
 
 for agent in \
+  'matt-city/matt.run-operator' \
   'matt-city/matt.researcher' \
   'matt-city/matt.technical-analyst' \
   'matt-city/matt.identity-security-analyst' \
@@ -48,4 +49,4 @@ for agent in \
   grep -Fq 'gc.outcome=pass' <<<"$PRIME" || fail "outcome protocol missing from $agent"
 done
 
-printf 'required operator, workers, graph.v2 routes, and claim lifecycle are present\n'
+printf 'required local operator, workers, graph.v2 routes, and claim lifecycle are present\n'
