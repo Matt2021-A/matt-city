@@ -1,0 +1,4 @@
+scope = "rig"
+provider = "codex"
+fallback = true
+description = "Review technical drafts for Matt voice, pacing, clarity, and operator-first tone."
