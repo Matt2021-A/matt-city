@@ -45,10 +45,10 @@ Non-package artifact hashes are SHA-256 values observed before writing this inde
 
 | Required artifact | Status | SHA-256 | Producer / Bead evidence |
 |---|---|---|---|
-| `requests/phase-1-smoke-test-003/artifacts/research-findings.md` | Present | `03b24acdaa8293cdd04ae284a673f6b6e954dcf020ec9dd4aba3846ec0c690d5` | `matt-city/matt.researcher-1`; session `mcr-wisp-xamxea`; logical Bead `mc-u4d`; attempt Bead `mc-3i8`; `gc.outcome=pass` |
+| `requests/phase-1-smoke-test-003/artifacts/research-findings.md` | Present | `4e0a55b77a4221e6537cccaa3c63c100920493376365c94072b6888ac5c7b8cb` | `matt-city/matt.researcher-1`; session `mcr-wisp-xamxea`; logical Bead `mc-u4d`; attempt Bead `mc-3i8`; `gc.outcome=pass` |
 | `requests/phase-1-smoke-test-003/artifacts/technical-analysis.md` | Present | `0b06cb3787f95dcd6153123460e7348644ed9f1da65ef3c9a820ea026ca7855d` | `matt-city/matt.technical-analyst-1`; session `mcr-wisp-pzsryk`; logical Bead `mc-7bt`; attempt Bead `mc-exr`; `gc.outcome=pass` |
 | `requests/phase-1-smoke-test-003/artifacts/identity-security-analysis.md` | Present | `3a5e4cc5eb00ea0826d8aa10429fc11b429bea458473e97fc571536dbbd9c869` | `matt-city/matt.identity-security-analyst-1`; session `mcr-wisp-vqufrx`; logical Bead `mc-i3f`; attempt Bead `mc-g0a`; `gc.outcome=pass` |
-| `requests/phase-1-smoke-test-003/artifacts/skeptical-review.md` | Present | `525c988b94a77c1ebdb55e55d9afe17db497e619673a80577a420ed89a7eb9b7` | `matt-city/matt.skeptic-1`; session `mcr-wisp-dbouve`; logical Bead `mc-xxq`; attempt Bead `mc-3b9`; `gc.outcome=pass` |
+| `requests/phase-1-smoke-test-003/artifacts/skeptical-review.md` | Present | `3dfdd0e2e10849cad86f7dc56bc7e2b99827f644d45893a12b08b7934a95cf7b` | `matt-city/matt.skeptic-1`; session `mcr-wisp-dbouve`; logical Bead `mc-xxq`; attempt Bead `mc-3b9`; `gc.outcome=pass` |
 | `requests/phase-1-smoke-test-003/artifacts/artifact-index.md` | Present | Final hash is recorded in `provenance.json` after this file write | `matt-city/matt.technical-analyst-1`; session `mcr-wisp-02ufc2`; logical Bead `mc-2yp`; attempt Bead `mc-hmp` |
 | `requests/phase-1-smoke-test-003/artifacts/provenance.json` | Present | Self-hash is not embedded; final hash must be computed after the file is written | `matt-city/matt.technical-analyst-1`; session `mcr-wisp-02ufc2`; logical Bead `mc-2yp`; attempt Bead `mc-hmp` |
 
