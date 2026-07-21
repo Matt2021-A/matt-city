@@ -1,0 +1,143 @@
+{
+  "artifact_id": "phase-1-smoke-test-003/package-artifacts",
+  "asana": {
+    "project_gid": "1216444827581484",
+    "task_gid": "1216740708489953",
+    "approval_task_gid": null
+  },
+  "gas_city": {
+    "city": "/home/matt/matt-city-runtime",
+    "rig": "matt-city",
+    "formula": "research-topic@1",
+    "workflow_id": "mc-5n9",
+    "convoy_id": "mc-aba",
+    "root_bead_id": "mc-5n9",
+    "bead_ids": [
+      "originating_request:mc-90t",
+      "workflow_input_convoy:mc-aba",
+      "workflow_root:mc-5n9:status=closed:gc.outcome=pass",
+      "research_spec:mc-d1q",
+      "research_retry_controller:mc-u4d:status=closed:gc.outcome=pass",
+      "research_attempt_1:mc-3i8:status=closed:gc.outcome=pass:session=mcr-wisp-xamxea",
+      "technical_analysis_spec:mc-a63",
+      "technical_analysis_retry_controller:mc-7bt:status=closed:gc.outcome=pass",
+      "technical_analysis_attempt_1:mc-exr:status=closed:gc.outcome=pass:session=mcr-wisp-pzsryk",
+      "identity_security_spec:mc-qnt",
+      "identity_security_retry_controller:mc-i3f:status=closed:gc.outcome=pass",
+      "identity_security_attempt_1:mc-g0a:status=closed_by_upstream_session:session=mcr-wisp-vqufrx",
+      "skeptical_review_spec:mc-l6n",
+      "skeptical_review_retry_controller:mc-xxq:status=closed:gc.outcome=pass",
+      "skeptical_review_attempt_1:mc-3b9:status=closed_by_upstream_session:session=mcr-wisp-dbouve",
+      "package_artifacts_spec:mc-yoi",
+      "package_artifacts_retry_controller:mc-2yp:status=open_before_attempt_close:not_directly_re-read_after_attempt_close",
+      "package_artifacts_attempt_1:mc-hmp:status=closed:gc.outcome=pass:session=mcr-wisp-02ufc2",
+      "workflow_finalize:mc-5wu:status=pending_before_package_close:not_directly_re-read_after_package_close;root_mc-5n9_closed_pass_after_package_close"
+    ],
+    "event_ids": []
+  },
+  "requested_by": "Matthew Romero",
+  "delegated_by": "Primary assistant",
+  "performed_by": [
+    {
+      "agent": "matt-city/matt.run-operator",
+      "session_id": null,
+      "provider": null,
+      "contribution": "Workflow launch target for root mc-5n9 and workflow-finalize target for mc-5wu; concrete run-operator session was not captured in the approved local snapshots used by package-artifacts."
+    },
+    {
+      "agent": "matt-city/core.control-dispatcher",
+      "session_id": "mcr-wisp-fstd3k",
+      "provider": null,
+      "contribution": "Observed active control-dispatcher session core__control-dispatcher-mcr-wisp-fstd3k in local session snapshots; followed matt-city/core.control-dispatcher."
+    },
+    {
+      "agent": "matt-city/matt.researcher-1",
+      "session_id": "mcr-wisp-xamxea",
+      "provider": "codex; model not exposed in research artifact metadata",
+      "contribution": "Produced research-findings.md for attempt mc-3i8; logical Bead mc-u4d closed with gc.outcome=pass."
+    },
+    {
+      "agent": "matt-city/matt.technical-analyst-1",
+      "session_id": "mcr-wisp-pzsryk",
+      "provider": "codex; exact model not exposed in technical-analysis artifact metadata",
+      "contribution": "Produced technical-analysis.md for attempt mc-exr; logical Bead mc-7bt closed with gc.outcome=pass."
+    },
+    {
+      "agent": "matt-city/matt.identity-security-analyst-1",
+      "session_id": "mcr-wisp-vqufrx",
+      "provider": "codex; local session snapshot command includes --model gpt-5.5; artifact records exact model as not exposed in permitted metadata",
+      "contribution": "Produced identity-security-analysis.md for attempt mc-g0a; logical Bead mc-i3f closed with gc.outcome=pass."
+    },
+    {
+      "agent": "matt-city/matt.skeptic-1",
+      "session_id": "mcr-wisp-dbouve",
+      "provider": "codex; local session snapshot command includes --model gpt-5.5; artifact records exact model as not exposed in permitted metadata",
+      "contribution": "Produced skeptical-review.md for attempt mc-3b9; logical Bead mc-xxq closed with gc.outcome=pass."
+    },
+    {
+      "agent": "matt-city/matt.technical-analyst-1",
+      "session_id": "mcr-wisp-02ufc2",
+      "provider": "codex; exact model not exposed in current permitted session metadata",
+      "contribution": "Produced artifact-index.md and provenance.json for package-attempt Bead mc-hmp; mc-hmp closed with gc.outcome=pass; post-close verification observed workflow root mc-5n9 closed with gc.outcome=pass."
+    }
+  ],
+  "inputs": [
+    "request_id=phase-1-smoke-test-003",
+    "originating_blog_project_gid=1213500168987836",
+    "originating_blog_task_gid=1216445335991016",
+    "approval_state=Local research, analysis, packaging, and provenance only",
+    "external_write_authorization=Denied",
+    "telemetry_enabled=false",
+    "git_branch=fix/restore-bd-provider",
+    "git_commit=8c0da8d3903bcc91b2f7f056a10ebb44579dd69a",
+    "formula=research-topic",
+    "formula_version=1",
+    "formula_launch:requests/phase-1-smoke-test-003/launch-result.jsonl:workflow_id=mc-5n9:target=matt-city/matt.run-operator:success=true",
+    "path=requests/phase-1-smoke-test-003/request.md;sha256=fa24ad02163d29fba148f3656956ad39aefc1600b96fd36027409add6c4221a8",
+    "path=requests/phase-1-smoke-test-003/asana-context.md;sha256=7f3a219b29651e4d954790df61d9516795a4ab7751908bd584e4d92b623fcd77",
+    "path=requests/phase-1-smoke-test-003/source-bead-after-launch.json;sha256=d8e15802a05123ca1c4d401f5640d09519e7dd1076ee51b01060505229291903",
+    "path=requests/phase-1-smoke-test-003/workflow-root-after-launch.json;sha256=d75cf0c9398cd6afd2129ad355efb88d77af16cfbc6c3c4cdd422d09a9a2faf7",
+    "path=requests/phase-1-smoke-test-003/workflow-children-after-launch.json;sha256=37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "path=requests/phase-1-smoke-test-003/workflow-root-current.json;sha256=494eb9fc6579146c993f789dc6b61347ac774d7fef246945ec9d319c4e1c2130",
+    "path=requests/phase-1-smoke-test-003/workflow-nodes-current.json;sha256=101337aed355c1516dae1ab057ec9beac80b0e3e6d3636126dd94aa6238cb252",
+    "path=requests/phase-1-smoke-test-003/sessions-current.json;sha256=fca6d85d9cb5f636cf6cf8f30f13bb537adc68b9cac09d6a664f4662e7eb939e",
+    "path=requests/phase-1-smoke-test-003/artifacts/research-findings.md;sha256=03b24acdaa8293cdd04ae284a673f6b6e954dcf020ec9dd4aba3846ec0c690d5",
+    "path=requests/phase-1-smoke-test-003/artifacts/technical-analysis.md;sha256=0b06cb3787f95dcd6153123460e7348644ed9f1da65ef3c9a820ea026ca7855d",
+    "path=requests/phase-1-smoke-test-003/artifacts/identity-security-analysis.md;sha256=3a5e4cc5eb00ea0826d8aa10429fc11b429bea458473e97fc571536dbbd9c869",
+    "path=requests/phase-1-smoke-test-003/artifacts/skeptical-review.md;sha256=525c988b94a77c1ebdb55e55d9afe17db497e619673a80577a420ed89a7eb9b7",
+    "current_local_bead_read_before_close=bd show \"mc-hmp\" --json;result=mc-hmp in_progress;upstream logical dependencies mc-u4d, mc-7bt, mc-i3f, mc-xxq closed with gc.outcome=pass",
+    "current_local_bead_read_after_close=bd show \"mc-hmp\" --json;result=mc-hmp closed with gc.outcome=pass;tracked workflow root mc-5n9 closed with gc.outcome=pass",
+    "runtime_versions=GC_BIN gascity 1.3.5; PATH-local gc 1.3.4; bd 1.1.0 (8e4e59d39: HEAD@8e4e59d39f34); dolt 2.2.1"
+  ],
+  "outputs": [
+    "path=requests/phase-1-smoke-test-003/artifacts/research-findings.md;sha256=03b24acdaa8293cdd04ae284a673f6b6e954dcf020ec9dd4aba3846ec0c690d5;logical_bead=mc-u4d;attempt_bead=mc-3i8;session=mcr-wisp-xamxea",
+    "path=requests/phase-1-smoke-test-003/artifacts/technical-analysis.md;sha256=0b06cb3787f95dcd6153123460e7348644ed9f1da65ef3c9a820ea026ca7855d;logical_bead=mc-7bt;attempt_bead=mc-exr;session=mcr-wisp-pzsryk",
+    "path=requests/phase-1-smoke-test-003/artifacts/identity-security-analysis.md;sha256=3a5e4cc5eb00ea0826d8aa10429fc11b429bea458473e97fc571536dbbd9c869;logical_bead=mc-i3f;attempt_bead=mc-g0a;session=mcr-wisp-vqufrx",
+    "path=requests/phase-1-smoke-test-003/artifacts/skeptical-review.md;sha256=525c988b94a77c1ebdb55e55d9afe17db497e619673a80577a420ed89a7eb9b7;logical_bead=mc-xxq;attempt_bead=mc-3b9;session=mcr-wisp-dbouve",
+    "path=requests/phase-1-smoke-test-003/artifacts/artifact-index.md;sha256=791d8f5dd43ed6cee1bec3cc9a47698e11d4c00f9b20cbb60a764f02c96242e4;logical_bead=mc-2yp;attempt_bead=mc-hmp;session=mcr-wisp-02ufc2",
+    "path=requests/phase-1-smoke-test-003/artifacts/provenance.json;sha256=self_hash_not_embedded;reason=embedding the final SHA-256 inside this file would change the hash;logical_bead=mc-2yp;attempt_bead=mc-hmp;session=mcr-wisp-02ufc2",
+    "final_workflow_outcome=pass;workflow_root_bead=mc-5n9;workflow_finalize_bead=mc-5wu;basis=post-close read of claimed Bead mc-hmp showed tracked root mc-5n9 closed with gc.outcome=pass;mc-5wu was not directly re-read after package close",
+    "retry_summary=max_attempts=2 for all specialist steps;attempts observed as first-attempt pass;no natural failed-then-retried attempt observed",
+    "failure_summary=no workflow failure recorded in package evidence;operational note=initial package shell could not resolve gc until /home/matt/go/bin was prepended to PATH"
+  ],
+  "capabilities_used": [
+    "Read approved local request package and upstream local artifacts.",
+    "Read local workflow and session snapshots under requests/phase-1-smoke-test-003.",
+    "Claimed routed work through gc hook --claim --json for explicit package attempt mc-hmp.",
+    "Read current claimed Bead state with bd show \"mc-hmp\" --json.",
+    "Computed SHA-256 hashes with local sha256sum.",
+    "Read local Git branch and commit without remote access.",
+    "Read local runtime versions for GC_BIN, PATH-local gc, bd, and dolt.",
+    "Wrote only requests/phase-1-smoke-test-003/artifacts/artifact-index.md and requests/phase-1-smoke-test-003/artifacts/provenance.json.",
+    "External systems accessed=none.",
+    "External systems modified=none.",
+    "No browser, Asana connector, GitHub credential, Drive, email, calendar, contacts, Slack, WordPress, publishing, commit, push, or telemetry instrumentation was used."
+  ],
+  "external_identities_used": [],
+  "approval": {
+    "required": true,
+    "state": "approved",
+    "approved_by": "Matthew Romero",
+    "approved_at": null
+  }
+}
