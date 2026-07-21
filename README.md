@@ -31,19 +31,37 @@ Matt City is running in a live Phase 1 lab:
 
 The current gate is a fresh end-to-end bd-backed smoke test that proves route, claim, execution, artifact packaging, provenance, and finalization. A slow session-snapshot and store-status path remains an operational warning, not a completed root-cause investigation.
 
-Phoenix is a committed future component of Matt City. It will be added after the bd-backed workflow baseline as the AI-specific tracing and evaluation plane. It does not replace Gas City, Beads/Dolt, Asana, GitHub, or the operational metrics and logs layer.
+Phoenix is a committed Phase 2 component, not the Matt City roadmap by itself. OpenTelemetry/OpenInference provide neutral instrumentation and transport, while Phoenix will be the primary initial interface for workflow traces, AI behavior, evaluations, and trace-derived signals. Grafana-class operational tooling is deferred until a concrete infrastructure-monitoring, log-search, alerting, or retention requirement justifies it.
 
 See [Live Runtime Validation](docs/runtime-validation.md) for exact observations and remaining gates.
 
-## Systems of record
+## Project roadmap
+
+The complete roadmap is maintained in [Matt City Project Roadmap](docs/roadmap.md) and in the canonical [Asana roadmap task](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216740612789172).
+
+The implementation sequence is:
+
+1. **Foundation and operating model:** Asana, GitHub, identity, authority, provenance, Debian, Docker, Gas City, Codex, and bd/Dolt.
+2. **Durable execution baseline:** fresh route, claim, execution, dependencies, retries, packaging, provenance, finalization, request schema, and operator documentation.
+3. **Observability and operator experience:** OpenTelemetry/OpenInference instrumentation, Phoenix, deterministic evaluations, and dashboard navigation across canonical systems.
+4. **Core context and content workflows:** bounded retrieval, TechThatMattRs, approval states, and the future Context Agent.
+5. **Governed integrations and synchronization:** Asana sync, draft-only publishing, and carefully scoped external identities.
+6. **Workflow expansion:** career, social, and business workflows.
+7. **Operational hardening:** backup, recovery, retention, upgrades, service identities, health, and security review.
+
+The current project gate is [Smoke Test #3: Fresh bd-backed end-to-end workflow](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216740708489953).
+
+## Systems of record and interfaces
 
 | System | Role |
 |---|---|
 | **Asana** | Canonical human work, context, decisions, approvals, status, and history |
 | **Gas City plus Beads/Dolt** | Machine orchestration, durable workflow state, dependencies, agents, sessions, orders, and events |
 | **GitHub** | Versioned prompts, formulas, schemas, policies, code, documentation, and approved artifacts |
-| **OpenTelemetry plus Grafana** | Operational metrics, logs, health, and infrastructure reporting |
-| **Phoenix** | AI traces, annotations, datasets, experiments, and evaluations |
+| **OpenTelemetry/OpenInference** | Neutral instrumentation, semantic conventions, context propagation, and telemetry transport |
+| **Phoenix** | Primary Phase 2 interface for AI traces, annotations, datasets, experiments, evaluations, and trace-derived signals |
+| **Gas City CLI/API plus system tools** | Initial operational diagnosis through Gas City, systemd, journald, Docker, process, filesystem, and store inspection |
+| **Future Grafana-class stack** | Deferred until continuous infrastructure metrics, centralized logs, alerting, or separate retention are required |
 | **Context layer** | Governed retrieval from relevant Asana work and approved linked artifacts |
 | **Primary assistant** | Interpretation, context selection, delegation, synthesis, and mediated external actions under its own identities |
 | **Matthew** | Direction, ownership, judgment, and approval |
@@ -51,6 +69,7 @@ See [Live Runtime Validation](docs/runtime-validation.md) for exact observations
 Canonical links:
 
 - [Matt City Asana project](https://app.asana.com/1/1204112251101459/project/1216444827581484)
+- [Matt City project roadmap](docs/roadmap.md)
 - [Matt City GitHub repository](https://github.com/Matt2021-A/matt-city)
 - [Gas City documentation](https://docs.gascity.com/)
 - [Gas City repository](https://github.com/gastownhall/gascity/)
@@ -81,12 +100,17 @@ GAS CITY + BEADS/DOLT
    +----------------> Context packages
    |                  approved task context and linked artifacts only
    |
-   +----------------> PHOENIX
-   |                  optional AI traces, evaluations, datasets,
-   |                  experiments, and annotations
+   +----------------> OTEL / OPENINFERENCE
+   |                  instrumentation, semantics, and transport
+   |                         |
+   |                         v
+   |                     PHOENIX
+   |                     primary trace, evaluation,
+   |                     experiment, and AI-observability interface
    |
-   +----------------> OTEL + GRAFANA
-   |                  operational metrics, logs, and health
+   +----------------> GAS CITY + SYSTEM TOOLS
+   |                  workflow state, service health, logs,
+   |                  Docker, process, filesystem, and store diagnosis
    |
    v
 ARTIFACT + PROVENANCE LAYER
@@ -100,7 +124,7 @@ ASANA
    links, findings, decisions, blockers, approvals, and final status
 ```
 
-Telemetry is observational. Phoenix or collector failure must not stop workflow execution.
+Telemetry is observational. Phoenix, a collector, or any future dashboard failure must not stop workflow execution or change its outcome.
 
 ## Work-object model
 
@@ -115,7 +139,7 @@ Matt City separates human work from machine execution.
 | **Root and step Beads** | Durable machine work objects and dependency state |
 | **Gas City convoy** | Tracking container for ordinary slung work, not a synonym for every workflow |
 | **Agent session** | Replaceable live process performing bounded work |
-| **Phoenix trace** | Optional observational record of AI execution and evaluation |
+| **Phoenix trace** | Observational record of AI execution, correlation, and evaluation |
 | **GitHub artifact** | Versioned configuration, schema, policy, implementation, or approved output |
 | **Provenance record** | Link among the Asana task, Gas City objects, agents, sessions, identities, artifacts, and approvals |
 
@@ -212,7 +236,7 @@ Local specialist agents may read approved inputs and write local generated artif
 - inherited assistant connections
 - unrelated private context
 
-The first Phoenix implementation will collect correlation metadata only. It will not capture prompt bodies, tool output, source-document bodies, credentials, secrets, or personal data by default.
+The first Phoenix implementation will collect correlation and lifecycle metadata only. It will not capture prompt bodies, tool input or output bodies, source-document bodies, connected-system content, credentials, secrets, or personal data by default.
 
 ## Phase 1 acceptance gates
 
@@ -258,55 +282,3 @@ Every meaningful artifact records:
 - approval state and approver
 
 Phoenix adds observational correlation. It does not replace canonical provenance.
-
-## Human approval tiers
-
-**Tier 1:** read-only, reversible analysis and local drafts.
-
-**Tier 2:** assistant-mediated Asana updates, artifact links, and internal drafts performed through the assistant's own identity.
-
-**Tier 3:** Matthew approval required for publishing, email, applications, merges, deletion, permission changes, and consequential commitments.
-
-## Planned workstreams
-
-- **TechThatMattRs:** research, article development, editorial review, and distribution planning
-- **Career:** role research, resume alignment, cover letters, and interview preparation
-- **Social:** LinkedIn, Mastodon, GitHub presence, replies, reposts, and campaign sequencing
-- **Business:** Matt & Jody Co planning and operations
-- **Creative:** songs, poetry, image-driven concepts, and experimental writing
-
-The first content acceptance test is [Building Matt City: An Identity-Aware Multi-Agent Work System](https://app.asana.com/1/1204112251101459/project/1213500168987836/task/1216445335991016).
-
-## Repository map
-
-```text
-matt-city/
-├── README.md
-├── .agents/
-│   └── README.md
-├── docs/
-│   ├── architecture.md
-│   ├── decisions/
-│   │   └── ADR-0001-phoenix-observability.md
-│   ├── gas-city-alignment.md
-│   ├── identity-model.md
-│   ├── phase-1-scope.md
-│   ├── phoenix-trace-schema.md
-│   └── runtime-validation.md
-├── city/
-│   ├── agents/
-│   └── formulas/
-├── requests/
-├── schemas/
-├── policies/
-└── examples/
-```
-
-## Roadmap
-
-1. **Phase 1:** complete the bd-backed Asana-linked research workflow baseline
-2. **Phase 2:** record the Phoenix architecture and privacy policy, then define the trace schema
-3. **Phase 3:** instrument a fresh workflow and prove non-blocking degraded behavior
-4. **Phase 4:** add deterministic evaluations and operationalize retention, access, and health
-5. **Phase 5:** build Asana-first context retrieval and domain workflows
-6. **Phase 6:** add governed external integrations, recovery, cost, and operational reporting
