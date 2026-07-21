@@ -1,0 +1,106 @@
+formula = "draft-technical-blog"
+version = 1
+target_required = true
+description = "Turn an approved Matt City editorial request into an outline, complete draft, targeted reviews, and a revised final draft."
+
+[catalog]
+name = "draft-technical-blog"
+description = "Run the bounded Matt City technical-blog drafting and review workflow."
+
+[requires]
+formula_compiler = ">=2.0.0"
+
+[vars.request_id]
+description = "Matt City request identifier"
+required = true
+
+[vars.asana_project_gid]
+description = "Originating Asana project GID"
+required = true
+
+[vars.asana_task_gid]
+description = "Originating Asana task GID"
+required = true
+
+[vars.request_path]
+description = "Path to the approved request package inside the rig"
+required = true
+
+[[steps]]
+id = "outline"
+title = "Produce the approved article outline for {{request_id}}"
+description = "Read {{request_path}}, its existing editorial brief and story map, and the approved local source artifacts. Produce requests/{{request_id}}/artifacts/outline.md. The outline must form a coherent operator-first story and be detailed enough to draft without reconstructing the assignment. Close the claimed bead with gc.outcome=pass only after the artifact exists."
+metadata = { "gc.run_target" = "matt-city/matt.editorial-strategist", request_id = "{{request_id}}", asana_project_gid = "{{asana_project_gid}}", asana_task_gid = "{{asana_task_gid}}" }
+[steps.retry]
+max_attempts = 2
+on_exhausted = "hard_fail"
+
+[[steps]]
+id = "draft-v1"
+title = "Write a complete first draft for {{request_id}}"
+description = "Read {{request_path}}, the approved editorial brief, story map, outline, and named local sources. Produce requests/{{request_id}}/artifacts/draft-v1.md as a complete publishable article draft, not notes or an analysis report. Close the claimed bead with gc.outcome=pass only after the artifact exists."
+needs = ["outline"]
+metadata = { "gc.run_target" = "matt-city/matt.writer", request_id = "{{request_id}}", asana_project_gid = "{{asana_project_gid}}", asana_task_gid = "{{asana_task_gid}}" }
+[steps.retry]
+max_attempts = 2
+on_exhausted = "hard_fail"
+
+[[steps]]
+id = "technical-review"
+title = "Review technical accuracy for {{request_id}}"
+description = "Review requests/{{request_id}}/artifacts/draft-v1.md against the request, repository sources, and Smoke Test #3 technical evidence. Produce requests/{{request_id}}/artifacts/technical-review.md with targeted corrections, unsupported claims, and missing technical context. Do not create a replacement article. Close the claimed bead with gc.outcome=pass only after the artifact exists."
+needs = ["draft-v1"]
+metadata = { "gc.run_target" = "matt-city/matt.technical-analyst", request_id = "{{request_id}}", asana_project_gid = "{{asana_project_gid}}", asana_task_gid = "{{asana_task_gid}}" }
+[steps.retry]
+max_attempts = 2
+on_exhausted = "hard_fail"
+
+[[steps]]
+id = "identity-review"
+title = "Review identity and authority claims for {{request_id}}"
+description = "Review requests/{{request_id}}/artifacts/draft-v1.md against the approved identity-security evidence. Produce requests/{{request_id}}/artifacts/identity-review.md with targeted corrections for principals, credentials, authorization, delegation, approval, attribution, and blast radius. Do not create a replacement article. Close the claimed bead with gc.outcome=pass only after the artifact exists."
+needs = ["draft-v1"]
+metadata = { "gc.run_target" = "matt-city/matt.identity-security-analyst", request_id = "{{request_id}}", asana_project_gid = "{{asana_project_gid}}", asana_task_gid = "{{asana_task_gid}}" }
+[steps.retry]
+max_attempts = 2
+on_exhausted = "hard_fail"
+
+[[steps]]
+id = "skeptical-review"
+title = "Challenge the draft for {{request_id}}"
+description = "Review requests/{{request_id}}/artifacts/draft-v1.md for unsupported claims, hidden assumptions, overstatement, weak evidence, missing alternatives, and confusing narrative choices. Produce requests/{{request_id}}/artifacts/skeptical-review.md with targeted revision guidance. Do not create a replacement article. Close the claimed bead with gc.outcome=pass only after the artifact exists."
+needs = ["draft-v1"]
+metadata = { "gc.run_target" = "matt-city/matt.skeptic", request_id = "{{request_id}}", asana_project_gid = "{{asana_project_gid}}", asana_task_gid = "{{asana_task_gid}}" }
+[steps.retry]
+max_attempts = 2
+on_exhausted = "hard_fail"
+
+[[steps]]
+id = "voice-review"
+title = "Review Matt voice and editorial usability for {{request_id}}"
+description = "Review requests/{{request_id}}/artifacts/draft-v1.md against the request voice guidance, editorial brief, story map, and outline. Produce requests/{{request_id}}/artifacts/voice-review.md with targeted changes for operator-first tone, pacing, clarity, specificity, and removal of generic or vendor-like prose. Close the claimed bead with gc.outcome=pass only after the artifact exists."
+needs = ["draft-v1"]
+metadata = { "gc.run_target" = "matt-city/matt.voice-editor", request_id = "{{request_id}}", asana_project_gid = "{{asana_project_gid}}", asana_task_gid = "{{asana_task_gid}}" }
+[steps.retry]
+max_attempts = 2
+on_exhausted = "hard_fail"
+
+[[steps]]
+id = "draft-final"
+title = "Produce the revised final draft for {{request_id}}"
+description = "Revise requests/{{request_id}}/artifacts/draft-v1.md using technical-review.md, identity-review.md, skeptical-review.md, and voice-review.md. Produce requests/{{request_id}}/artifacts/draft-final.md as one coherent complete article. Resolve reviewer feedback in the prose and do not append process notes. Close the claimed bead with gc.outcome=pass only after the artifact exists."
+needs = ["technical-review", "identity-review", "skeptical-review", "voice-review"]
+metadata = { "gc.run_target" = "matt-city/matt.writer", request_id = "{{request_id}}", asana_project_gid = "{{asana_project_gid}}", asana_task_gid = "{{asana_task_gid}}" }
+[steps.retry]
+max_attempts = 2
+on_exhausted = "hard_fail"
+
+[[steps]]
+id = "package-artifacts"
+title = "Package editorial artifacts for {{request_id}}"
+description = "Create requests/{{request_id}}/artifacts/artifact-index.md and requests/{{request_id}}/artifacts/provenance.json for this editorial run. Record workflow, steps, attempts, agents, sessions, local inputs, outputs, hashes, and approval boundaries. Do not perform external writes. Close the claimed bead with gc.outcome=pass only after both artifacts exist."
+needs = ["draft-final"]
+metadata = { "gc.run_target" = "matt-city/matt.technical-analyst", request_id = "{{request_id}}", asana_project_gid = "{{asana_project_gid}}", asana_task_gid = "{{asana_task_gid}}" }
+[steps.retry]
+max_attempts = 2
+on_exhausted = "hard_fail"
