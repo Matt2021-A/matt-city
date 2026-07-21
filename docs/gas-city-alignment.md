@@ -1,16 +1,14 @@
 # Gas City Documentation Alignment
 
-This document maps Matt City to the official Gas City documentation at https://docs.gascity.com/.
+This document maps Matt City to the official Gas City model and records the current local implementation state.
 
 ## Source of truth
 
-Implementation decisions follow the official documentation and the `gastownhall/gascity` repository. Steve Yegge's article provides vision and context, not configuration authority.
+Implementation decisions follow the official Gas City documentation and the `gastownhall/gascity` repository. Vision articles provide useful context but are not configuration authority.
 
 Primary references:
 
-- https://docs.gascity.com/llms.txt
-- https://docs.gascity.com/getting-started/installation
-- https://docs.gascity.com/getting-started/quickstart
+- https://docs.gascity.com/
 - https://docs.gascity.com/getting-started/how-gas-city-works
 - https://docs.gascity.com/tutorials/01-cities-and-rigs
 - https://docs.gascity.com/tutorials/02-agents
@@ -28,14 +26,18 @@ Primary references:
 
 | Gas City primitive | Matt City use |
 |---|---|
-| Agent | Bounded specialist worker |
+| Agent | Bounded worker definition |
+| Session | Replaceable live process executing as a concrete agent instance |
 | Bead | Durable machine work item beneath an Asana task |
 | Formula | Reusable method such as `research-topic` |
-| Rig | Registered project directory where work executes |
+| Workflow | Formula V2 graph materialized as root, step, and attempt work |
+| Rig | Registered project directory where Matt City work executes |
 | Pack | Reusable collection of agents, formulas, orders, prompts, and support files |
+| Order | Scheduled or event-triggered control-plane work |
 | Event | Observable activity for status, audit, and automation |
+| Convoy | Tracking container for ordinary slung work, not a synonym for every workflow |
 
-Gas City remains role-agnostic. Matt City roles are configuration, not built-in platform roles.
+Gas City remains role-agnostic. Matt City roles are local configuration and policy, not built-in platform roles.
 
 ## Work-object mapping
 
@@ -44,129 +46,136 @@ Asana project
   canonical human project and context boundary
 
 Asana task
-  canonical human request, decision, or approval
+  canonical human request, decision, review, or approval
 
 Gas City formula
-  reusable method
+  reusable execution method
 
 Gas City workflow
-  v2 graph materialized from a formula
+  Formula V2 graph materialized beneath the Asana task
 
-Gas City root and step beads
-  durable machine work objects
-
-Gas City convoy
-  tracking container used for ordinary slung work
-  not a synonym for every formula workflow
+Root, step, and attempt Beads
+  durable machine work, dependencies, routing, and lifecycle state
 
 Gas City session
-  replaceable live agent process
+  replaceable live process that claims and performs bounded work
 
 GitHub artifact
-  versioned configuration, schema, policy, or approved output
+  versioned configuration, schema, policy, implementation, or approved output
+
+Phoenix trace
+  optional observational correlation, not canonical workflow state
 ```
 
-A direct `gc sling <agent> <formula> --formula` starts a workflow. Cooking a formula and then slinging the root bead routes ordinary work and creates an auto-convoy. Matt City provenance records both when present.
-
-Every workflow and artifact must retain the originating Asana project and task IDs.
+Every workflow and artifact must retain the originating Asana project and task GIDs.
 
 ## Native agent configuration
 
 Gas City custom agents use:
 
 ```text
-agents/<agent-name>/agent.toml
-agents/<agent-name>/prompt.template.md
+city/agents/<agent-name>/agent.toml
+city/agents/<agent-name>/prompt.template.md
 ```
 
-The Phase 1 branch now includes native directories for:
+The current branch includes:
 
+- `run-operator`
 - `researcher`
 - `technical-analyst`
 - `identity-security-analyst`
 - `skeptic`
 
-The older top-level Markdown files under `city/agents/` are design notes only. They are not executable Gas City configuration.
-
-Provider aliases referenced by `agent.toml` must be registered in the runtime city's `city.toml`. The committed Phase 1 configs reference `codex`, Gas City's built-in OpenAI Codex CLI harness. The runtime must register it as:
+Provider aliases referenced by `agent.toml` must be registered in the runtime city. Matt City uses Gas City's built-in Codex harness:
 
 ```toml
 [providers.codex]
 base = "builtin:codex"
 ```
 
-The installed Codex CLI and its OpenAI authentication must be validated in WSL. Selecting the Codex provider does not grant specialist agents another principal's GitHub, Asana, email, calendar, or publishing connections.
+Selecting the provider does not grant specialist agents another principal's GitHub, Asana, email, calendar, publishing, or telemetry-administration access.
 
 ## Communication and context
 
-Agents do not share ambient memory or direct references. They coordinate through durable store-mediated mechanisms:
+Agents coordinate through durable store-mediated mechanisms:
 
-- slung work
+- slung or routed work
 - mail
 - hooks
-- beads
+- Beads
+- orders and events
 - artifacts and metadata
 
-Matt City therefore packages context deliberately. An agent receives only approved task context and linked artifacts, not the full Asana workspace or another agent's session history.
+Matt City packages context deliberately. An agent receives only approved task context and linked artifacts, not the entire Asana workspace, another agent's session history, or the primary assistant's private connections.
 
 ## Formula alignment
 
-Formula files live under a city's `formulas/` directory. The Phase 1 `research-topic.toml` now follows the documented v2 shape:
+The Phase 1 `research-topic` formula follows Formula V2 conventions:
 
-- top-level `formula` and `description`
+- top-level formula name and description
 - `[requires] formula_compiler = ">=2.0.0"`
 - declared variables
-- `[[steps]]`
+- explicit step specifications and attempts
 - `needs` dependency edges
-- documented retry configuration
+- concrete run targets
+- bounded retry behavior
+- a workflow finalization step
 
-Unsupported placeholder fields such as `[formula]`, per-step `agent`, `input`, `output`, and `type = "wait"` were removed.
+Human approval is not modeled as an invented wait step. The machine workflow packages artifacts and reaches terminal state. The authorized assistant returns results to Asana, where Matthew reviews or approves downstream use.
 
-Human approval is not modeled as an invented formula wait step. The Gas City workflow packages artifacts and closes; the authorized assistant returns results to Asana, where Matthew reviews or approves downstream use.
+## Beads and Dolt provider
 
-## Beads provider
+The active Phase 1 runtime uses the intended managed bd/Dolt model.
 
-Gas City supports the default `bd` plus Dolt data plane and a file backend for small or tutorial setups. Phase 1 may use `GC_BEADS=file` to validate configuration and workflow behavior with less setup friction.
+Current observed versions:
 
-Before treating Matt City as durable operational infrastructure, test the documented default provider and recovery behavior.
+- Gas City 1.3.5
+- Beads 1.1.0
+- Dolt 2.2.1
 
-Asana remains the canonical human work plane. Beads remain the machine execution plane.
+Current endpoint:
 
-## Installation baseline for Ubuntu WSL
-
-Documented Linux runtime dependencies:
-
-- `tmux`
-- `jq`
-- `git`
-- `dolt` 2.1.0 or newer for the default provider
-- `bd` 1.0.0
-- `flock`
-- optional `gh`
-
-Homebrew is the documented recommended installation method on Linux. Direct release download is also supported. Source builds require Go 1.26+ and `make`.
-
-Verification begins with:
-
-```bash
-gc version
-gc init ~/matt-city-runtime
-cd ~/matt-city-runtime
+```text
+127.0.0.1:44381
 ```
 
-The installed versions and WSL-specific findings must be recorded in the corresponding Asana task.
+The earlier file-provider substitution was temporary. It allowed configuration work to continue while the initial schema-migration failure was investigated, but it is not the active durability model now.
+
+An inactive legacy embedded-Dolt store remains present for deliberate reconciliation. It must not be deleted or merged without export, dry-run review, and explicit approval.
+
+Asana remains the canonical human work plane. Beads/Dolt remain the canonical machine execution-state plane.
+
+## Debian WSL runtime
+
+The live environment is Debian GNU/Linux 13.5 under WSL2, not Ubuntu.
+
+The stack is contained inside the Debian instance:
+
+- Gas City and its supervisor
+- Beads and Dolt
+- native Docker Engine
+- Matt City runtime services
+- local agent sessions
+- future Phoenix container
+
+Docker, the Gas City supervisor, and the Matt City bootstrap service are managed by Debian systemd. Windows must still start the WSL distribution before those services can run.
 
 ## Identity and authority extension
 
-Gas City tracks work, agent, session, routing, provider, and event identity. Matt City adds an external governance chain:
+Gas City tracks work, agent, session, routing, provider, and event identities. Matt City adds a governance chain:
 
 - resource owner
 - human initiator
 - delegating assistant principal
+- canonical task owner
 - Gas City agent
-- runtime session and provider
+- runtime session
+- provider entitlement holder
 - target-system authenticated principal
-- human approver
+- telemetry collector
+- telemetry viewer
+- reviewer
+- approver
 
 Agents may inherit work. They do not inherit another principal's identity, credentials, connections, permissions, or unrelated context.
 
@@ -174,47 +183,51 @@ Agents may inherit work. They do not inherit another principal's identity, crede
 
 Phase 1 local agents receive only the local access required to read approved inputs and write generated artifacts. They receive no Asana, GitHub, email, calendar, WordPress, or other external credentials.
 
-External updates are performed later by the separately authorized principal that actually owns the connection.
+External updates are performed by the separately authorized principal that owns the connection.
+
+The first Phoenix integration will be metadata-first. It will exclude prompt bodies, tool output, source-document bodies, connected-system content, credentials, secrets, and personal data by default.
 
 ## Current implementation status
 
-Completed in the branch:
+Demonstrated:
 
-- full architecture and systems-of-record model
-- official documentation map
-- native Phase 1 agent directories and prompts
-- documented v2 `research-topic` formula
-- Asana and Gas City provenance schema
-- capability policy denying specialist-agent external writes
-- Asana tasks updated with installation and validation criteria
+- Debian WSL city initialization
+- Gas City 1.3.5 supervisor operation
+- automatic startup through systemd
+- native Docker Engine inside Debian
+- Matt City rig registration
+- Codex provider registration and authentication
+- managed bd/Dolt accessibility
+- native run operator and specialist-agent configuration
+- Formula V2 compilation
+- bd-backed workflow materialization
+- runtime-alignment validation
+- doctor output with no failed checks in the current baseline
 
-Not yet demonstrated:
+Not yet demonstrated end to end:
 
-- Gas City installed under Ubuntu WSL
-- city initialized and supervisor running
-- rig registered
-- Codex provider alias and authentication validated
-- agent prompts loaded by `gc prime`
-- formula compiled by `gc formula show`
-- workflow cooked or slung
-- dependencies, retry, finalization, and session recovery observed
-- real workflow, bead, convoy, event, and session IDs captured
-- output linked back to the parent Asana task
+- fresh workflow route and claim
+- specialist execution through concrete sessions
+- dependency, retry, and finalization behavior across the full graph
+- durable state across session replacement
+- one correlated set of workflow, Bead, event, agent, and session identifiers
+- artifact packaging and provenance return to Asana
+- explicit proof that no specialist agent performed an external write
+
+The current session-snapshot and store-status latency is an operational warning. It is not a substitute for the actual smoke test.
 
 ## Phase 1 runtime acceptance
 
-Phase 1 is complete only after the installed Gas City version demonstrates:
+Phase 1 is complete only after a fresh workflow demonstrates:
 
-- city initialization under Ubuntu WSL
-- Matt City rig registration
-- native agent discovery and prompt loading
-- Codex provider registration in `city.toml`
-- Codex CLI authentication under the intended execution principal
-- successful v2 formula compilation
-- workflow execution with correct dependencies
-- durable bead state across session replacement
-- provenance containing Asana and Gas City identifiers
+- unique request and workflow identifiers
+- successful Formula V2 materialization
+- correct route and concrete claim
+- specialist execution with dependency ordering
+- terminal step and workflow states
+- durable Bead state across session replacement
+- provenance containing Asana, Gas City, Beads, session, and Git identifiers
 - artifact return to the originating Asana task
-- no specialist-agent external writes
+- no unauthorized specialist-agent external writes
 
-Any conflict between this document and the official documentation must be resolved in favor of the official documentation, with the decision recorded in Asana.
+Any conflict between this document and current official Gas City documentation must be resolved in favor of the official documentation, with the decision recorded in Asana and reflected in GitHub.
