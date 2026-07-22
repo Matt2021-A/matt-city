@@ -77,6 +77,14 @@ Relevant sources include:
 - Steve Yegge, "Welcome to Gas City"
 - Additional primary Gas City documentation required to explain cities, rigs, agents, formulas, Beads, sessions, routing, and workflow state accurately
 
+### Durable Matt editorial context
+
+All prose-shaping agents must read:
+
+- `context/matt-editorial-profile.md`
+
+The profile provides durable voice, editorial preferences, relevant professional context, privacy boundaries, and evidence-handling guidance. It does not provide article facts or approval. The current request, approved editorial brief, story map, claimed Bead, and cited sources remain authoritative for assignment-specific content.
+
 ### Matt voice references
 
 Use selected TechThatMattRs posts as voice and structural references, especially writing that:
@@ -152,7 +160,7 @@ The editorial stage succeeds only if:
 9. The final prose sounds like an operator explaining what happened, not a vendor promoting an agent platform.
 10. No Google Doc write, Asana update, WordPress action, social post, or publication occurs without Matthew's explicit approval.
 
-## Current authorization
+## Authorization at request creation
 
 Authorized now:
 
@@ -171,3 +179,11 @@ Not authorized now:
 - Merge the working branch.
 - Publish or distribute the article.
 - Add Phoenix or other telemetry work.
+
+## Authorization update: drafting checkpoint
+
+`go.md` records Matthew's July 21, 2026 approval to continue from the approved editorial brief and story map into the local outline and draft workflow.
+
+That approval supersedes only the earlier prohibition on launching the local production editorial workflow. It does not authorize Google Docs transfer, Asana modification by local agents, GitHub merge, WordPress activity, publication, distribution, telemetry expansion, or any other external write.
+
+Before producing the outline or draft, the editorial strategist, writer, and voice editor must use `context/matt-editorial-profile.md` under the authority and precedence rules stated above.
