@@ -1,0 +1,54 @@
+[
+  {
+    "id": "mc-m0q",
+    "title": "draft-technical-blog",
+    "description": "Turn an approved Matt City editorial request into an outline, complete draft, targeted reviews, and a revised final draft.",
+    "status": "in_progress",
+    "priority": 2,
+    "issue_type": "task",
+    "created_at": "2026-07-22T04:13:50Z",
+    "updated_at": "2026-07-22T04:13:55Z",
+    "started_at": "2026-07-22T04:13:55Z",
+    "metadata": {
+      "gc.formula_contract": "graph.v2",
+      "gc.graphv2_root_key": "graphv2-root:mc-vfy:draft-technical-blog:e14d8ca49b2c75a1:default",
+      "gc.graphv2_vars.v1": "{\"asana_project_gid\":\"1213500168987836\",\"asana_task_gid\":\"1216445335991016\",\"binding_name\":\"matt\",\"binding_prefix\":\"matt.\",\"request_id\":\"building-matt-city-blog-001\",\"request_path\":\"requests/building-matt-city-blog-001/request.md\",\"rig_name\":\"matt-city\"}",
+      "gc.input_convoy_id": "mc-vfy",
+      "gc.kind": "workflow",
+      "gc.root_store_ref": "rig:matt-city",
+      "gc.routed_to": "matt-city/matt.run-operator",
+      "gc.var.asana_project_gid": "1213500168987836",
+      "gc.var.asana_task_gid": "1216445335991016",
+      "gc.var.binding_name": "matt",
+      "gc.var.binding_prefix": "matt.",
+      "gc.var.convoy_id": "mc-vfy",
+      "gc.var.request_id": "building-matt-city-blog-001",
+      "gc.var.request_path": "requests/building-matt-city-blog-001/request.md",
+      "gc.var.rig_name": "matt-city"
+    },
+    "dependencies": [
+      {
+        "id": "mc-8d8",
+        "title": "Finalize workflow",
+        "status": "open",
+        "priority": 2,
+        "issue_type": "task",
+        "created_at": "2026-07-22T04:13:51Z",
+        "updated_at": "2026-07-22T04:13:53Z",
+        "metadata": {
+          "gc.execution_rig_context": "matt-city",
+          "gc.execution_routed_to": "matt-city/matt.run-operator",
+          "gc.kind": "workflow-finalize",
+          "gc.root_bead_id": "mc-m0q",
+          "gc.root_store_ref": "rig:matt-city",
+          "gc.routed_to": "matt-city/core.control-dispatcher",
+          "gc.step_ref": "draft-technical-blog.workflow-finalize"
+        },
+        "dependency_type": "blocks"
+      }
+    ],
+    "dependent_count": 25,
+    "dependency_count": 1,
+    "comment_count": 0
+  }
+]

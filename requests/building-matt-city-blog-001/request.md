@@ -187,3 +187,9 @@ Not authorized now:
 That approval supersedes only the earlier prohibition on launching the local production editorial workflow. It does not authorize Google Docs transfer, Asana modification by local agents, GitHub merge, WordPress activity, publication, distribution, telemetry expansion, or any other external write.
 
 Before producing the outline or draft, the editorial strategist, writer, and voice editor must use `context/matt-editorial-profile.md` under the authority and precedence rules stated above.
+
+## Article-specific prior-run evidence
+
+Because this article documents Matt City itself, the research phase must review `context/prior-run-evidence.md` before extending the research or drafting an outline.
+
+This is a request-specific exception. Prior Matt City run artifacts are not default context for unrelated requests.
