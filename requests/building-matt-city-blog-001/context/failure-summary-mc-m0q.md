@@ -34,3 +34,15 @@ Because the article concerns Matt City itself, this failed run may be used to ex
 - why a successful launch command is not proof of useful output
 
 This failed run must not be represented as current behavior after the relevant defect is corrected.
+
+## Captured session evidence
+
+The preserved session evidence is stored under `context/mc-m0q-session/`:
+
+- `strategist-peek.txt`
+- `strategist-logs.txt`
+- `sessions-before-close.txt`
+- `strategist-close.jsonl`
+- `sessions-after-close.txt`
+
+These files preserve the strategist's final visible state and the explicit closure of the obsolete session.
