@@ -1,0 +1,3 @@
+ID               TEMPLATE                             STATE   REASON   TARGET                                 TITLE                           AGE  LAST ACTIVE  LAST NUDGE
+mcr-wisp-e560u7  matt-city/matt.editorial-strategist  active  session  matt-city/matt.editorial-strategist-1  matt-city/matt.editorial-st...  2h   2h ago       -
+mcr-wisp-uc5d1b  matt-city/core.control-dispatcher    active  session  matt-city/core.control-dispatcher      matt-city/core.control-disp...  16h  16h ago      -

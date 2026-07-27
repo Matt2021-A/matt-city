@@ -1,0 +1,4 @@
+scope = "rig"
+provider = "codex"
+fallback = true
+description = "Write and revise complete technical articles from approved local editorial artifacts and sources."

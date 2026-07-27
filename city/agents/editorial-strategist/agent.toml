@@ -1,0 +1,4 @@
+scope = "rig"
+provider = "codex"
+fallback = true
+description = "Produce an editorial outline from approved local sources."
