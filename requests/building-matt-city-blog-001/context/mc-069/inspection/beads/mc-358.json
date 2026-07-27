@@ -1,0 +1,82 @@
+[
+  {
+    "id": "mc-358",
+    "title": "Finalize workflow",
+    "status": "open",
+    "priority": 2,
+    "issue_type": "task",
+    "created_at": "2026-07-22T20:48:59Z",
+    "updated_at": "2026-07-22T20:49:01Z",
+    "metadata": {
+      "gc.execution_rig_context": "matt-city",
+      "gc.execution_routed_to": "matt-city/matt.run-operator",
+      "gc.kind": "workflow-finalize",
+      "gc.root_bead_id": "mc-069",
+      "gc.root_store_ref": "rig:matt-city",
+      "gc.routed_to": "matt-city/core.control-dispatcher",
+      "gc.step_ref": "draft-technical-blog.workflow-finalize"
+    },
+    "dependencies": [
+      {
+        "id": "mc-069",
+        "title": "draft-technical-blog",
+        "description": "Turn an approved Matt City editorial request into an outline, complete draft, targeted reviews, and a revised final draft.",
+        "status": "in_progress",
+        "priority": 2,
+        "issue_type": "task",
+        "created_at": "2026-07-22T20:48:54Z",
+        "updated_at": "2026-07-22T20:49:57Z",
+        "started_at": "2026-07-22T20:49:57Z",
+        "metadata": {
+          "gc.formula_contract": "graph.v2",
+          "gc.graphv2_root_key": "graphv2-root:mc-vfy:draft-technical-blog:e14d8ca49b2c75a1:default",
+          "gc.graphv2_vars.v1": "{\"asana_project_gid\":\"1213500168987836\",\"asana_task_gid\":\"1216445335991016\",\"binding_name\":\"matt\",\"binding_prefix\":\"matt.\",\"request_id\":\"building-matt-city-blog-001\",\"request_path\":\"requests/building-matt-city-blog-001/request.md\",\"rig_name\":\"matt-city\"}",
+          "gc.input_convoy_id": "mc-vfy",
+          "gc.kind": "workflow",
+          "gc.root_store_ref": "rig:matt-city",
+          "gc.routed_to": "matt-city/matt.run-operator",
+          "gc.var.asana_project_gid": "1213500168987836",
+          "gc.var.asana_task_gid": "1216445335991016",
+          "gc.var.binding_name": "matt",
+          "gc.var.binding_prefix": "matt.",
+          "gc.var.convoy_id": "mc-vfy",
+          "gc.var.request_id": "building-matt-city-blog-001",
+          "gc.var.request_path": "requests/building-matt-city-blog-001/request.md",
+          "gc.var.rig_name": "matt-city"
+        },
+        "dependency_type": "tracks"
+      },
+      {
+        "id": "mc-dk1",
+        "title": "Package editorial artifacts for building-matt-city-blog-001",
+        "description": "Create requests/building-matt-city-blog-001/artifacts/artifact-index.md and requests/building-matt-city-blog-001/artifacts/provenance.json for this editorial run. Record workflow, steps, attempts, agents, sessions, local inputs, outputs, hashes, and approval boundaries. Do not perform external writes. Close the claimed bead with gc.outcome=pass only after both artifacts exist.",
+        "status": "open",
+        "priority": 2,
+        "issue_type": "task",
+        "created_at": "2026-07-22T20:48:58Z",
+        "updated_at": "2026-07-22T20:49:01Z",
+        "metadata": {
+          "asana_project_gid": "1213500168987836",
+          "asana_task_gid": "1216445335991016",
+          "gc.control_epoch": "1",
+          "gc.execution_rig_context": "matt-city",
+          "gc.execution_routed_to": "matt-city/matt.technical-analyst",
+          "gc.kind": "retry",
+          "gc.max_attempts": "2",
+          "gc.on_exhausted": "hard_fail",
+          "gc.root_bead_id": "mc-069",
+          "gc.root_store_ref": "rig:matt-city",
+          "gc.routed_to": "matt-city/core.control-dispatcher",
+          "gc.run_target": "matt-city/matt.technical-analyst",
+          "gc.step_id": "package-artifacts",
+          "gc.step_ref": "draft-technical-blog.package-artifacts",
+          "request_id": "building-matt-city-blog-001"
+        },
+        "dependency_type": "blocks"
+      }
+    ],
+    "dependent_count": 1,
+    "dependency_count": 2,
+    "comment_count": 0
+  }
+]

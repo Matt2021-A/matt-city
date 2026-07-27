@@ -1,0 +1,74 @@
+*(core)*
+  - `core.gc-work` — Finding, creating, claiming, and closing work items
+  (beads) *(core)*
+
+  These are discovery-time hints, not execution gates — the vendor loads every
+  skill from the sink directory regardless of what this appendix lists.
+
+
+• SessionStart hook (completed)
+  hook context: [matt-city-runtime] matt-city/matt.editorial-strategist-1 •
+    2026-07-22T11:30:06
+
+• I’m using the gc-work skill because this turn is about claiming and closing a
+  routed bead. I’ll keep the first Matt City work operation to the requested
+  claim command.
+
+• Explored
+  └ Read SKILL.md (gc-work skill)
+
+────────────────────────────────────────────────────────────────────────────────
+
+• The work skill confirms gc is the right interface for claim and close. I’m
+  claiming only from the hook now, per the assignment boundary.
+
+• Ran gc hook --claim --json
+  └ /bin/bash: line 1: gc: command not found
+
+────────────────────────────────────────────────────────────────────────────────
+
+• gc is not on this shell’s PATH, so I’m going to read the repository operator
+  cheat sheet now and use its local setup guidance rather than guessing at the
+  command location.
+
+• Explored
+  └ Read operator-cheatsheet.md
+
+────────────────────────────────────────────────────────────────────────────────
+
+• The cheat sheet gives the CLI path as /home/matt/go/bin/gc. I’m retrying the
+  same hook claim through that explicit binary path.
+
+• Ran /home/matt/go/bin/gc hook --claim --json
+  └ {"schema_version":"1","ok":true,"command":"hook","action":"drain","reason":"
+    no_work"}
+
+────────────────────────────────────────────────────────────────────────────────
+
+• The hook returned no_work, so there is no claimed Bead to use as an assignment
+  source. I’ll still run the requested prime command via the explicit gc path,
+  but I won’t inspect unrelated Bead lists or invent work.
+
+• Ran /home/matt/go/bin/gc prime
+  └ # Editorial Strategist
+
+    … +29 lines (ctrl + t to view transcript)
+    closing. Then check for eligible continuation work through the same claim
+    protocol.
+
+────────────────────────────────────────────────────────────────────────────────
+
+• gc prime completed, and the hook claim returned:
+
+  {"action":"drain","reason":"no_work"}
+
+  There is no claimed Bead available for matt-city/matt.editorial-strategist-1,
+  so I did not inspect unrelated Beads, read assignment artifacts, create prose,
+  or close anything.
+
+─ Worked for 1m 26s ────────────────────────────────────────────────────────────
+
+
+› Find and fix a bug in @filename
+
+  gpt-5.5 xhigh · ~/src/matt-city

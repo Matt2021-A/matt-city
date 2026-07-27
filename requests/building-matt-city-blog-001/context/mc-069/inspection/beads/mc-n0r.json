@@ -1,0 +1,87 @@
+[
+  {
+    "id": "mc-n0r",
+    "title": "Review identity and authority claims for building-matt-city-blog-001",
+    "description": "Review requests/building-matt-city-blog-001/artifacts/draft-v1.md against the approved identity-security evidence. Produce requests/building-matt-city-blog-001/artifacts/identity-review.md with targeted corrections for principals, credentials, authorization, delegation, approval, attribution, and blast radius. Do not create a replacement article. Close the claimed bead with gc.outcome=pass only after the artifact exists.",
+    "status": "open",
+    "priority": 2,
+    "issue_type": "task",
+    "created_at": "2026-07-22T20:48:56Z",
+    "updated_at": "2026-07-22T20:49:00Z",
+    "metadata": {
+      "asana_project_gid": "1213500168987836",
+      "asana_task_gid": "1216445335991016",
+      "gc.attempt": "1",
+      "gc.logical_bead_id": "mc-99e",
+      "gc.root_bead_id": "mc-069",
+      "gc.root_store_ref": "rig:matt-city",
+      "gc.routed_to": "matt-city/matt.identity-security-analyst",
+      "gc.run_target": "matt-city/matt.identity-security-analyst",
+      "gc.step_id": "identity-review",
+      "gc.step_ref": "draft-technical-blog.identity-review.attempt.1",
+      "request_id": "building-matt-city-blog-001"
+    },
+    "dependencies": [
+      {
+        "id": "mc-69w",
+        "title": "Write a complete first draft for building-matt-city-blog-001",
+        "description": "Read requests/building-matt-city-blog-001/request.md, the approved editorial brief, story map, outline, and named local sources. Produce requests/building-matt-city-blog-001/artifacts/draft-v1.md as a complete publishable article draft, not notes or an analysis report. Close the claimed bead with gc.outcome=pass only after the artifact exists.",
+        "status": "open",
+        "priority": 2,
+        "issue_type": "task",
+        "created_at": "2026-07-22T20:48:55Z",
+        "updated_at": "2026-07-22T20:49:00Z",
+        "metadata": {
+          "asana_project_gid": "1213500168987836",
+          "asana_task_gid": "1216445335991016",
+          "gc.control_epoch": "1",
+          "gc.execution_rig_context": "matt-city",
+          "gc.execution_routed_to": "matt-city/matt.writer",
+          "gc.kind": "retry",
+          "gc.max_attempts": "2",
+          "gc.on_exhausted": "hard_fail",
+          "gc.root_bead_id": "mc-069",
+          "gc.root_store_ref": "rig:matt-city",
+          "gc.routed_to": "matt-city/core.control-dispatcher",
+          "gc.run_target": "matt-city/matt.writer",
+          "gc.step_id": "draft-v1",
+          "gc.step_ref": "draft-technical-blog.draft-v1",
+          "request_id": "building-matt-city-blog-001"
+        },
+        "dependency_type": "blocks"
+      },
+      {
+        "id": "mc-069",
+        "title": "draft-technical-blog",
+        "description": "Turn an approved Matt City editorial request into an outline, complete draft, targeted reviews, and a revised final draft.",
+        "status": "in_progress",
+        "priority": 2,
+        "issue_type": "task",
+        "created_at": "2026-07-22T20:48:54Z",
+        "updated_at": "2026-07-22T20:49:57Z",
+        "started_at": "2026-07-22T20:49:57Z",
+        "metadata": {
+          "gc.formula_contract": "graph.v2",
+          "gc.graphv2_root_key": "graphv2-root:mc-vfy:draft-technical-blog:e14d8ca49b2c75a1:default",
+          "gc.graphv2_vars.v1": "{\"asana_project_gid\":\"1213500168987836\",\"asana_task_gid\":\"1216445335991016\",\"binding_name\":\"matt\",\"binding_prefix\":\"matt.\",\"request_id\":\"building-matt-city-blog-001\",\"request_path\":\"requests/building-matt-city-blog-001/request.md\",\"rig_name\":\"matt-city\"}",
+          "gc.input_convoy_id": "mc-vfy",
+          "gc.kind": "workflow",
+          "gc.root_store_ref": "rig:matt-city",
+          "gc.routed_to": "matt-city/matt.run-operator",
+          "gc.var.asana_project_gid": "1213500168987836",
+          "gc.var.asana_task_gid": "1216445335991016",
+          "gc.var.binding_name": "matt",
+          "gc.var.binding_prefix": "matt.",
+          "gc.var.convoy_id": "mc-vfy",
+          "gc.var.request_id": "building-matt-city-blog-001",
+          "gc.var.request_path": "requests/building-matt-city-blog-001/request.md",
+          "gc.var.rig_name": "matt-city"
+        },
+        "dependency_type": "tracks"
+      }
+    ],
+    "dependent_count": 1,
+    "dependency_count": 2,
+    "comment_count": 0
+  }
+]

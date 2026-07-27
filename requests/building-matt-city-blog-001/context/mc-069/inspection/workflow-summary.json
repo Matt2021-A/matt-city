@@ -1,0 +1,247 @@
+[
+  {
+    "id": "mc-9k3",
+    "title": "Produce the revised final draft for building-matt-city-blog-001",
+    "status": "open",
+    "kind": "retry",
+    "step_ref": "draft-technical-blog.draft-final",
+    "routed_to": "matt-city/matt.writer",
+    "assignee": "",
+    "dependencies": [
+      "mc-brc",
+      "mc-lrv",
+      "mc-4cx",
+      "mc-z59",
+      "mc-99e",
+      "mc-069"
+    ]
+  },
+  {
+    "id": "mc-lrv",
+    "title": "Produce the revised final draft for building-matt-city-blog-001",
+    "status": "open",
+    "kind": null,
+    "step_ref": "draft-technical-blog.draft-final.attempt.1",
+    "routed_to": "matt-city/matt.writer",
+    "assignee": "",
+    "dependencies": [
+      "mc-z59",
+      "mc-brc",
+      "mc-4cx",
+      "mc-99e",
+      "mc-069"
+    ]
+  },
+  {
+    "id": "mc-69w",
+    "title": "Write a complete first draft for building-matt-city-blog-001",
+    "status": "open",
+    "kind": "retry",
+    "step_ref": "draft-technical-blog.draft-v1",
+    "routed_to": "matt-city/matt.writer",
+    "assignee": "",
+    "dependencies": [
+      "mc-uo7",
+      "mc-069",
+      "mc-b3d"
+    ]
+  },
+  {
+    "id": "mc-b3d",
+    "title": "Write a complete first draft for building-matt-city-blog-001",
+    "status": "open",
+    "kind": null,
+    "step_ref": "draft-technical-blog.draft-v1.attempt.1",
+    "routed_to": "matt-city/matt.writer",
+    "assignee": "",
+    "dependencies": [
+      "mc-069",
+      "mc-uo7"
+    ]
+  },
+  {
+    "id": "mc-99e",
+    "title": "Review identity and authority claims for building-matt-city-blog-001",
+    "status": "open",
+    "kind": "retry",
+    "step_ref": "draft-technical-blog.identity-review",
+    "routed_to": "matt-city/matt.identity-security-analyst",
+    "assignee": "",
+    "dependencies": [
+      "mc-n0r",
+      "mc-69w",
+      "mc-069"
+    ]
+  },
+  {
+    "id": "mc-n0r",
+    "title": "Review identity and authority claims for building-matt-city-blog-001",
+    "status": "open",
+    "kind": null,
+    "step_ref": "draft-technical-blog.identity-review.attempt.1",
+    "routed_to": "matt-city/matt.identity-security-analyst",
+    "assignee": "",
+    "dependencies": [
+      "mc-69w",
+      "mc-069"
+    ]
+  },
+  {
+    "id": "mc-uo7",
+    "title": "Produce the approved article outline for building-matt-city-blog-001",
+    "status": "open",
+    "kind": "retry",
+    "step_ref": "draft-technical-blog.outline",
+    "routed_to": "matt-city/matt.editorial-strategist",
+    "assignee": "",
+    "dependencies": [
+      "mc-069",
+      "mc-417"
+    ]
+  },
+  {
+    "id": "mc-417",
+    "title": "Produce the approved article outline for building-matt-city-blog-001",
+    "status": "open",
+    "kind": null,
+    "step_ref": "draft-technical-blog.outline.attempt.1",
+    "routed_to": "matt-city/matt.editorial-strategist",
+    "assignee": "",
+    "dependencies": [
+      "mc-069"
+    ]
+  },
+  {
+    "id": "mc-dk1",
+    "title": "Package editorial artifacts for building-matt-city-blog-001",
+    "status": "open",
+    "kind": "retry",
+    "step_ref": "draft-technical-blog.package-artifacts",
+    "routed_to": "matt-city/matt.technical-analyst",
+    "assignee": "",
+    "dependencies": [
+      "mc-vs8",
+      "mc-9k3",
+      "mc-069"
+    ]
+  },
+  {
+    "id": "mc-vs8",
+    "title": "Package editorial artifacts for building-matt-city-blog-001",
+    "status": "open",
+    "kind": null,
+    "step_ref": "draft-technical-blog.package-artifacts.attempt.1",
+    "routed_to": "matt-city/matt.technical-analyst",
+    "assignee": "",
+    "dependencies": [
+      "mc-9k3",
+      "mc-069"
+    ]
+  },
+  {
+    "id": "mc-z59",
+    "title": "Challenge the draft for building-matt-city-blog-001",
+    "status": "open",
+    "kind": "retry",
+    "step_ref": "draft-technical-blog.skeptical-review",
+    "routed_to": "matt-city/matt.skeptic",
+    "assignee": "",
+    "dependencies": [
+      "mc-69w",
+      "mc-069",
+      "mc-617"
+    ]
+  },
+  {
+    "id": "mc-617",
+    "title": "Challenge the draft for building-matt-city-blog-001",
+    "status": "open",
+    "kind": null,
+    "step_ref": "draft-technical-blog.skeptical-review.attempt.1",
+    "routed_to": "matt-city/matt.skeptic",
+    "assignee": "",
+    "dependencies": [
+      "mc-069",
+      "mc-69w"
+    ]
+  },
+  {
+    "id": "mc-4cx",
+    "title": "Review technical accuracy for building-matt-city-blog-001",
+    "status": "open",
+    "kind": "retry",
+    "step_ref": "draft-technical-blog.technical-review",
+    "routed_to": "matt-city/matt.technical-analyst",
+    "assignee": "",
+    "dependencies": [
+      "mc-38y",
+      "mc-69w",
+      "mc-069"
+    ]
+  },
+  {
+    "id": "mc-38y",
+    "title": "Review technical accuracy for building-matt-city-blog-001",
+    "status": "open",
+    "kind": null,
+    "step_ref": "draft-technical-blog.technical-review.attempt.1",
+    "routed_to": "matt-city/matt.technical-analyst",
+    "assignee": "",
+    "dependencies": [
+      "mc-069",
+      "mc-69w"
+    ]
+  },
+  {
+    "id": "mc-brc",
+    "title": "Review Matt voice and editorial usability for building-matt-city-blog-001",
+    "status": "open",
+    "kind": "retry",
+    "step_ref": "draft-technical-blog.voice-review",
+    "routed_to": "matt-city/matt.voice-editor",
+    "assignee": "",
+    "dependencies": [
+      "mc-069",
+      "mc-69w",
+      "mc-fbu"
+    ]
+  },
+  {
+    "id": "mc-fbu",
+    "title": "Review Matt voice and editorial usability for building-matt-city-blog-001",
+    "status": "open",
+    "kind": null,
+    "step_ref": "draft-technical-blog.voice-review.attempt.1",
+    "routed_to": "matt-city/matt.voice-editor",
+    "assignee": "",
+    "dependencies": [
+      "mc-69w",
+      "mc-069"
+    ]
+  },
+  {
+    "id": "mc-358",
+    "title": "Finalize workflow",
+    "status": "open",
+    "kind": "workflow-finalize",
+    "step_ref": "draft-technical-blog.workflow-finalize",
+    "routed_to": "matt-city/matt.run-operator",
+    "assignee": "",
+    "dependencies": [
+      "mc-069",
+      "mc-dk1"
+    ]
+  },
+  {
+    "id": "mc-069",
+    "title": "draft-technical-blog",
+    "status": "in_progress",
+    "kind": "workflow",
+    "step_ref": null,
+    "routed_to": "matt-city/matt.run-operator",
+    "assignee": "",
+    "dependencies": [
+      "mc-358"
+    ]
+  }
+]
