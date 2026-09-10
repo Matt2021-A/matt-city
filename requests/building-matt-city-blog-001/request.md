@@ -6,10 +6,26 @@
 - Parent Asana task: `1216445335991016`
 - Target Google Doc ID: `1A10eeY7sQoYazqNxw8SY0mve1hjqQ14UufLORkXrJXM`
 - Repository: `Matt2021-A/matt-city`
-- Working branch: `fix/restore-bd-provider`
+- Repository base: `main`
+- Historical implementation branch: `fix/restore-bd-provider` (merged through PRs #12 and #13 and pruned remotely)
+- Current recorded workflow root: `mc-069`
+- Current recorded outline attempt: `mc-417`
 - Requester and final approver: Matthew Romero
 - Source-ingestion principal: Primary assistant using separately authorized connectors and public-web access
 - Local editorial execution principal: Matt City specialist agents using only the prepared source package
+
+## Current execution-state boundary
+
+The assignment and authorization remain active, but the Debian WSL runtime has not been directly revalidated since the unapproved August 23, 2026 Windows Update reboot. Do not infer current session, workflow, claim, service, installed-version, or local-worktree state from the historical records below.
+
+Before resuming local editorial execution:
+
+1. Perform the documented read-only post-reboot Git and runtime reconciliation.
+2. Inspect `mc-069`, `mc-417`, current strategist/control sessions, artifact existence, and claimability.
+3. Preserve the resulting evidence.
+4. Resume the existing durable workflow only if its state is safe and reconstructable; otherwise record why a replacement execution attempt is required.
+
+Any repository change after the September consolidation must use a new branch from current `main` and the normal branch -> pull request -> Matthew review -> merge process. Do not recreate `fix/restore-bd-provider` merely because older evidence names it.
 
 ## Purpose
 
@@ -111,7 +127,7 @@ Voice references include:
 - Treat the Smoke Test #3 artifacts as source material, not as the article structure.
 - Treat operational provenance as background evidence, not default drafting context.
 - Do not state that Matt City is production-ready, autonomous, externally integrated, enterprise-compliant, or a validated content-production system.
-- Do state that Smoke Test #3 proved the core local orchestration lifecycle and exposed the missing editorial and source-ingestion layers.
+- Do state that Smoke Test #3 proved the core local orchestration lifecycle for the tested path and exposed the missing editorial and source-ingestion layers.
 
 ## Editorial workflow
 
@@ -169,22 +185,21 @@ Authorized now:
 - Read public web sources linked by the task and additional directly relevant primary documentation.
 - Read the named GitHub repository files and Smoke Test #3 artifacts.
 - Read selected public TechThatMattRs writing samples for voice guidance.
-- Create this request and the first-checkpoint Markdown artifacts in the existing working branch.
+- Maintain this request and checkpoint Markdown artifacts through the normal repository review process.
 
 Not authorized now:
 
-- Launch the Matt City production editorial workflow.
 - Write to the Google Doc.
-- Modify Asana.
-- Merge the working branch.
+- Modify Asana from local specialist agents.
+- Merge repository changes outside the normal review path.
 - Publish or distribute the article.
-- Add Phoenix or other telemetry work.
+- Add Phoenix or other telemetry work to the production drafting run.
 
 ## Authorization update: drafting checkpoint
 
 `go.md` records Matthew's July 21, 2026 approval to continue from the approved editorial brief and story map into the local outline and draft workflow.
 
-That approval supersedes only the earlier prohibition on launching the local production editorial workflow. It does not authorize Google Docs transfer, Asana modification by local agents, GitHub merge, WordPress activity, publication, distribution, telemetry expansion, or any other external write.
+That approval remains valid. It authorizes local production editorial execution after current runtime state is reconciled. It does not authorize Google Docs transfer, Asana modification by local agents, GitHub merge outside normal review, WordPress activity, publication, distribution, telemetry expansion, or any other external write.
 
 Before producing the outline or draft, the editorial strategist, writer, and voice editor must use `context/matt-editorial-profile.md` under the authority and precedence rules stated above.
 
