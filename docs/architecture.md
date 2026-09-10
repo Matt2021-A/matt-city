@@ -183,6 +183,14 @@ Phoenix references canonical identifiers but does not replace them.
 10. Matthew reviews and approves downstream use.
 11. A separate instrumented run may export metadata-first telemetry to Phoenix without altering steps 1 through 10.
 
+## Current execution boundary
+
+Smoke Test #3 completed the tested local research lifecycle and is retained as baseline evidence. The current execution gate is the production editorial request `building-matt-city-blog-001` after read-only post-reboot runtime reconciliation.
+
+The last durable recorded production workflow pointer is `mc-069`, with outline attempt `mc-417`. Because the Debian WSL runtime has not been directly revalidated since the August 23, 2026 Windows Update reboot, those identifiers describe the last preserved state rather than a claim about what is currently live.
+
+GitHub `main` is the canonical versioned base after PR #13. Historical references to `fix/restore-bd-provider` describe the branch on which earlier work occurred and must not be treated as current branch instructions.
+
 ## Identity and authority chain
 
 The following roles must remain distinct even when one person or service occupies several of them:
@@ -254,7 +262,8 @@ See [Matt City Project Roadmap](roadmap.md) for gates, deferred work, and canoni
 
 - Matt City Asana project: https://app.asana.com/1/1204112251101459/project/1216444827581484
 - Matt City roadmap task: https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216740612789172
-- Current Smoke Test #3 task: https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216740708489953
+- Current production workflow stabilization task: https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216777414350711
+- Completed Smoke Test #3 baseline task: https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216740708489953
 - Phoenix implementation task: https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216732585597325
 - Operator dashboard task: https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216477412200438
 - Gas City documentation: https://docs.gascity.com/

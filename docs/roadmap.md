@@ -1,7 +1,7 @@
 # Matt City Project Roadmap
 
 - Status: Active
-- Updated: 2026-07-20
+- Updated: 2026-09-10
 - Canonical human roadmap: [Matt City project roadmap and phase gates](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216740612789172)
 - Canonical project: [Matt City in Asana](https://app.asana.com/1/1204112251101459/project/1216444827581484)
 
@@ -22,31 +22,42 @@ Matt City is being built as an identity-aware work system with six connected con
 
 ## Current project gate
 
-The immediate gate is a fresh bd-backed Formula V2 workflow:
+Smoke Test #3 is complete and remains the baseline proof for the tested bd-backed Formula V2 lifecycle:
 
 ```text
 Formula: research-topic
 Request ID: phase-1-smoke-test-003
-Branch: fix/restore-bd-provider
 Lifecycle: cook -> route -> claim -> execute -> package -> finalize
 ```
 
 Asana task: [Smoke Test #3: Fresh bd-backed end-to-end workflow](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216740708489953)
 
-This run must create new workflow and session objects. It must not repair, reuse, or delete retained evidence from earlier smoke tests.
+The current operational gate is the production editorial recovery case:
 
-Success requires:
+```text
+Request ID: building-matt-city-blog-001
+Formula: draft-technical-blog
+Current durable workflow pointer: mc-069
+Last recorded outline attempt: mc-417
+Repository base: main
+```
 
-- a fresh Formula V2 graph in the managed bd/Dolt store
-- supported routing to the qualified run operator
-- concrete specialist sessions claiming their own work
-- correct dependency, retry, outcome, and finalization behavior
-- local artifacts and reconstructable provenance
-- links back to the canonical Asana task and Git state
-- no unauthorized external access or write
-- either successful completion or a stable, fully evidenced failure
+Canonical recovery task: [Stabilize research-to-draft workflow for building-matt-city-blog-001](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216777414350711)
 
-Phoenix and other new telemetry dependencies are excluded from this baseline run.
+The August runtime investigation ended at an unapproved Windows Update reboot on August 23, 2026. The Debian WSL runtime has not been directly revalidated since that reboot. Current service state, installed versions, sessions, workflow state, claimability, artifact existence, and local Git worktree state are therefore unknown until a fresh read-only capture is performed.
+
+The next safe sequence is:
+
+1. inspect the local Git branch, worktree, and remote relationship without deleting untracked evidence
+2. revalidate Gas City path/version resolution and the two user services
+3. run bounded health inspection
+4. inspect `mc-069`, `mc-417`, strategist/control sessions, artifact existence, and current claimability
+5. preserve the capture
+6. only then decide whether the existing durable workflow can resume or a replacement execution attempt is required
+
+Do not launch a duplicate workflow, manually claim work, force-route downstream steps, clean untracked state, or make destructive store changes merely to advance the graph.
+
+Phoenix and other new telemetry dependencies remain excluded from the current execution-recovery gate.
 
 ## Phase 0: Foundation and operating model
 
@@ -62,12 +73,12 @@ Status: Substantially complete.
 - work-object mapping across Asana, Gas City, Beads, sessions, artifacts, and Git
 - provenance schema
 - approval and external-write boundary
-- Debian 13 WSL2 runtime
+- Debian 13 WSL2 runtime baseline
 - native Docker Engine inside Debian
-- Gas City supervisor and automatic systemd startup
+- Gas City supervisor and automatic systemd startup baseline
 - Codex provider registration
 - Matt City Pack v2, local run operator, specialist agents, and Formula V2 configuration
-- managed bd/Dolt data plane restored as the active architecture
+- managed bd/Dolt data plane restored as the intended architecture
 
 ### Foundation rule
 
@@ -79,14 +90,16 @@ Status: Active.
 
 ### Objectives
 
-- complete the fresh bd-backed end-to-end workflow
-- prove route, claim, execution, dependency, retry, outcome, and finalization behavior
+- preserve Smoke Test #3 as completed baseline proof of route, claim, execution, packaging, provenance, and finalization for the tested workflow
+- complete read-only post-reboot runtime and local-Git reconciliation
+- stabilize the production `building-matt-city-blog-001` route, claim, session, and artifact path
 - prove durable workflow state survives session replacement
 - capture workflow, Bead, event, agent, session, provider, Git, artifact, and approval identities together
 - produce and validate local artifacts and provenance
 - formalize the reusable request and context-package format
-- complete the operator manual and reusable smoke-test runbook
-- document the current slow status/session snapshot path without destructive cleanup
+- complete the operator manual and reusable smoke-test/recovery runbook
+- document the status/session snapshot path without destructive cleanup
+- complete regression and acceptance coverage
 - preserve failed and superseded workflow evidence
 
 ### Exit gate
@@ -95,8 +108,10 @@ Phase 1 exits when a new operator can reconstruct and operate a normal workflow 
 
 ### Canonical work
 
-- [Smoke Test #3](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216740708489953)
+- [Production editorial workflow stabilization](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216777414350711)
+- [Smoke Test #3, completed baseline evidence](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216740708489953)
 - [Create Matt City Operator's Manual](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216647357424303)
+- [Build Matt City workflow regression and acceptance test suite](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216777394352544)
 - [Build Asana-first context package format](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216444828181081)
 
 ## Phase 2: Observability and operator experience
@@ -186,6 +201,10 @@ Status: Design active, implementation gated by Phase 1.
 - complete the TechThatMattRs workflow from topic intake through research, analysis, skeptical review, packaging, drafting, Matt Voice review, distribution planning, and human approval
 - implement reusable approval, rejection, requested-change, timeout, and escalation states
 - design the read-only Context Agent after the manual bounded-retrieval model is stable
+
+### Current production acceptance case
+
+`building-matt-city-blog-001` is the first real content-production acceptance case. Its approved editorial brief and story map already exist, and Matthew approved local outline/draft execution on July 21, 2026. The system must produce the reviewed local artifact through Matt City before any external transfer or publication is considered.
 
 ### Exit gate
 
@@ -310,7 +329,7 @@ The following are not current implementation gates:
 - autonomous state-changing dashboard controls
 - Grafana-class operational stack without a documented need
 - Wasteland or multi-city federation
-- runtime host renaming during the current smoke-test cycle
+- runtime host renaming during the current recovery cycle
 - destructive store cleanup performed only to remove warnings
 
 ## Roadmap maintenance

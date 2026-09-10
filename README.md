@@ -15,7 +15,7 @@ Matt City does not replace Matthew's judgment or the primary-assistant relations
 
 ## Current status
 
-Matt City is running in a live Phase 1 lab:
+Last verified Phase 1 runtime baseline before the August 23, 2026 Windows Update reboot:
 
 - Debian GNU/Linux 13.5 under WSL2
 - native Docker Engine installed and managed inside Debian
@@ -29,7 +29,9 @@ Matt City is running in a live Phase 1 lab:
 - Formula V2 compilation and bd-backed workflow materialization demonstrated
 - runtime-alignment checks passing without a failed doctor check
 
-The current gate is a fresh end-to-end bd-backed smoke test that proves route, claim, execution, artifact packaging, provenance, and finalization. A slow session-snapshot and store-status path remains an operational warning, not a completed root-cause investigation.
+Smoke Test #3 subsequently completed and proved the tested bd-backed lifecycle through route, claim, execution, artifact packaging, provenance, and finalization. The current operational gate is recovery of the production editorial request `building-matt-city-blog-001`, whose durable workflow pointer is `mc-069` and whose last recorded outline attempt is `mc-417`.
+
+The local Debian WSL runtime has not been directly revalidated since the unapproved August 23 reboot. Current services, installed versions, sessions, workflow state, claimability, and local Git worktree state are therefore unknown until a fresh read-only capture is performed. PR #13 merged the strategist PATH remediation into `main`; that code change is not proof that the production claim/nudge issue is resolved.
 
 Phoenix is a committed Phase 2 component, not the Matt City roadmap by itself. OpenTelemetry/OpenInference provide neutral instrumentation and transport, while Phoenix will be the primary initial interface for workflow traces, AI behavior, evaluations, and trace-derived signals. Grafana-class operational tooling is deferred until a concrete infrastructure-monitoring, log-search, alerting, or retention requirement justifies it.
 
@@ -49,7 +51,7 @@ The implementation sequence is:
 6. **Workflow expansion:** career, social, and business workflows.
 7. **Operational hardening:** backup, recovery, retention, upgrades, service identities, health, and security review.
 
-The current project gate is [Smoke Test #3: Fresh bd-backed end-to-end workflow](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216740708489953).
+Smoke Test #3 is complete baseline evidence. The current project gate is [stabilizing the production research-to-draft workflow for `building-matt-city-blog-001`](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216777414350711), beginning with read-only post-reboot runtime reconciliation.
 
 ## Systems of record and interfaces
 
@@ -71,6 +73,7 @@ Canonical links:
 - [Matt City Asana project](https://app.asana.com/1/1204112251101459/project/1216444827581484)
 - [Matt City project roadmap](docs/roadmap.md)
 - [Matt City GitHub repository](https://github.com/Matt2021-A/matt-city)
+- [Production editorial workflow stabilization](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216777414350711)
 - [Gas City documentation](https://docs.gascity.com/)
 - [Gas City repository](https://github.com/gastownhall/gascity/)
 - [Phoenix repository](https://github.com/Arize-ai/phoenix)
@@ -156,8 +159,8 @@ Current examples:
 - Matthew owns or administers the GitHub repository.
 - `ChatGPTBot-MattR` is a separate GitHub principal with granted access.
 - The local Linux runtime runs as `matt`.
-- GitHub CLI authenticates as `Matt2021-A`.
-- Codex uses Matthew's OpenAI account for runtime entitlement.
+- GitHub CLI authenticated as `Matt2021-A` in the last verified runtime capture.
+- Codex used Matthew's OpenAI account for runtime entitlement in the last verified runtime capture.
 - Local Gas City agents inherit neither Asana nor GitHub access.
 - Future Phoenix collector, viewer, and MCP identities remain distinct.
 
@@ -175,7 +178,7 @@ Agents coordinate through Gas City's store-mediated mechanisms such as slung wor
 
 ## Live Gas City configuration
 
-The Phase 1 runtime uses the `builtin:codex` provider and the managed bd/Dolt data plane. The canonical live paths are:
+The last verified Phase 1 runtime used the `builtin:codex` provider and the managed bd/Dolt data plane. The canonical paths were:
 
 ```text
 City: /home/matt/matt-city-runtime
@@ -183,7 +186,7 @@ Rig:  /home/matt/src/matt-city
 Dolt: 127.0.0.1:44381
 ```
 
-The runtime was restored from the earlier temporary file-provider path to the intended bd-backed model. The branch `fix/restore-bd-provider` records that recovery work and the request package for the current smoke-test baseline.
+These paths remain the intended runtime layout, but their live post-reboot state must be revalidated. The runtime was restored from the earlier temporary file-provider path to the intended bd-backed model. The historical branch `fix/restore-bd-provider` recorded that recovery work; its changes were merged through PRs #12 and #13 and the branch was pruned. `main` is now the canonical versioned base.
 
 ## Native Phase 1 agents
 
@@ -225,6 +228,8 @@ The formula requires:
 
 Human approval occurs in Asana. It is not represented as an invented machine wait step.
 
+Smoke Test #3 demonstrated this lifecycle for the baseline research workflow. The production `draft-technical-blog` workflow is a separate acceptance case and remains unresolved in the latest durable evidence.
+
 ## Trust and telemetry boundary
 
 Local specialist agents may read approved inputs and write local generated artifacts. They receive no:
@@ -240,7 +245,7 @@ The first Phoenix implementation will collect correlation and lifecycle metadata
 
 ## Phase 1 acceptance gates
 
-Completed:
+Completed in the last verified baseline:
 
 - Gas City installation and version capture
 - Debian WSL city initialization
@@ -253,19 +258,19 @@ Completed:
 - native run operator and specialist-agent configuration
 - Formula V2 compilation and workflow materialization
 - runtime alignment validation
+- Smoke Test #3 route, concrete claim, execution, artifact packaging, provenance, and finalization
 
-Remaining:
+Remaining before Phase 1 exits:
 
-- fresh workflow route and claim
-- specialist execution through concrete sessions
-- correct dependency, retry, and finalization behavior
+- fresh post-reboot runtime and local-Git reconciliation
+- stable production editorial route/claim/session behavior for `building-matt-city-blog-001`
 - session replacement without lost durable work state
-- real workflow, Bead, event, agent, and session identifiers captured together
-- provenance linked to an Asana project and task
-- outputs returned to Asana
-- confirmation that no specialist agent performed an external write
+- regression and acceptance coverage
+- operator documentation aligned to observed behavior
+- production editorial artifact package and provenance
+- confirmation that no specialist agent performed an unauthorized external write
 
-The current `gc status` session-snapshot timeout and store latency remain documented operational warnings. They do not count as a successful workflow test or as proof that workflow execution is blocked.
+The previously observed `gc status` session-snapshot timeout and store latency remain documented operational warnings. They do not count as proof of current post-reboot behavior until revalidated.
 
 ## Provenance model
 
