@@ -1,6 +1,6 @@
 # Gas City Documentation Alignment
 
-This document maps Matt City to the official Gas City model and records the current local implementation state.
+This document maps Matt City to the official Gas City model and records the current known implementation state.
 
 ## Source of truth
 
@@ -29,7 +29,7 @@ Primary references:
 | Agent | Bounded worker definition |
 | Session | Replaceable live process executing as a concrete agent instance |
 | Bead | Durable machine work item beneath an Asana task |
-| Formula | Reusable method such as `research-topic` |
+| Formula | Reusable method such as `research-topic` or `draft-technical-blog` |
 | Workflow | Formula V2 graph materialized as root, step, and attempt work |
 | Rig | Registered project directory where Matt City work executes |
 | Pack | Reusable collection of agents, formulas, orders, prompts, and support files |
@@ -78,15 +78,9 @@ city/agents/<agent-name>/agent.toml
 city/agents/<agent-name>/prompt.template.md
 ```
 
-The current branch includes:
+Matt City includes local run-operator, research, technical-analysis, identity/security, skeptical-review, and editorial workflow agents.
 
-- `run-operator`
-- `researcher`
-- `technical-analyst`
-- `identity-security-analyst`
-- `skeptic`
-
-Provider aliases referenced by `agent.toml` must be registered in the runtime city. Matt City uses Gas City's built-in Codex harness:
+Provider aliases referenced by `agent.toml` must be registered in the runtime city. The last observed Matt City runtime used Gas City's built-in Codex harness:
 
 ```toml
 [providers.codex]
@@ -110,7 +104,7 @@ Matt City packages context deliberately. An agent receives only approved task co
 
 ## Formula alignment
 
-The Phase 1 `research-topic` formula follows Formula V2 conventions:
+Matt City's Formula V2 workflows use:
 
 - top-level formula name and description
 - `[requires] formula_compiler = ">=2.0.0"`
@@ -119,37 +113,39 @@ The Phase 1 `research-topic` formula follows Formula V2 conventions:
 - `needs` dependency edges
 - concrete run targets
 - bounded retry behavior
-- a workflow finalization step
+- workflow finalization
 
 Human approval is not modeled as an invented wait step. The machine workflow packages artifacts and reaches terminal state. The authorized assistant returns results to Asana, where Matthew reviews or approves downstream use.
 
 ## Beads and Dolt provider
 
-The active Phase 1 runtime uses the intended managed bd/Dolt model.
+The intended Phase 1 durability model is managed bd/Dolt.
 
-Current observed versions:
+Last observed runtime versions before the August 23, 2026 reboot were:
 
 - Gas City 1.3.5
 - Beads 1.1.0
 - Dolt 2.2.1
 
-Current endpoint:
+Last observed endpoint:
 
 ```text
 127.0.0.1:44381
 ```
 
-The earlier file-provider substitution was temporary. It allowed configuration work to continue while the initial schema-migration failure was investigated, but it is not the active durability model now.
+These are preserved runtime observations, not current September live assertions. Revalidate locally before relying on version-specific behavior.
 
-An inactive legacy embedded-Dolt store remains present for deliberate reconciliation. It must not be deleted or merged without export, dry-run review, and explicit approval.
+The earlier file-provider substitution was temporary and is retained as historical recovery evidence. It is not the intended active durability model.
+
+An inactive legacy embedded-Dolt store was previously retained for deliberate reconciliation. It must not be deleted or merged without current inspection, export/dry-run review where applicable, and explicit approval.
 
 Asana remains the canonical human work plane. Beads/Dolt remain the canonical machine execution-state plane.
 
 ## Debian WSL runtime
 
-The live environment is Debian GNU/Linux 13.5 under WSL2, not Ubuntu.
+The last known environment was Debian GNU/Linux 13.5 under WSL2, not Ubuntu.
 
-The stack is contained inside the Debian instance:
+The stack was contained inside the Debian instance:
 
 - Gas City and its supervisor
 - Beads and Dolt
@@ -158,7 +154,9 @@ The stack is contained inside the Debian instance:
 - local agent sessions
 - future Phoenix container
 
-Docker, the Gas City supervisor, and the Matt City bootstrap service are managed by Debian systemd. Windows must still start the WSL distribution before those services can run.
+Docker, the Gas City supervisor, and the Matt City bootstrap service were managed by Debian systemd. Windows must still start the WSL distribution before those services can run.
+
+Freshness boundary: the runtime has not been directly revalidated since the unapproved August 23 Windows Update reboot. Service state, process/session state, installed versions, and current store/workflow state are unknown until read-only reconciliation is performed.
 
 ## Identity and authority extension
 
@@ -189,45 +187,44 @@ The first Phoenix integration will be metadata-first. It will exclude prompt bod
 
 ## Current implementation status
 
-Demonstrated:
+### Demonstrated in preserved evidence
 
 - Debian WSL city initialization
-- Gas City 1.3.5 supervisor operation
-- automatic startup through systemd
+- Gas City supervisor operation and automatic startup before the later reboot
 - native Docker Engine inside Debian
 - Matt City rig registration
-- Codex provider registration and authentication
+- Codex provider registration and authentication for the tested environment
 - managed bd/Dolt accessibility
 - native run operator and specialist-agent configuration
-- Formula V2 compilation
-- bd-backed workflow materialization
+- Formula V2 compilation and bd-backed workflow materialization
 - runtime-alignment validation
-- doctor output with no failed checks in the current baseline
+- Smoke Test #3 route, concrete claim, specialist execution, dependency ordering, artifact packaging, provenance, and finalization for the tested `research-topic` path
 
-Not yet demonstrated end to end:
+Smoke Test #3 therefore closed the earlier question of whether the basic local bd-backed lifecycle could execute end to end for that tested workflow.
 
-- fresh workflow route and claim
-- specialist execution through concrete sessions
-- dependency, retry, and finalization behavior across the full graph
-- durable state across session replacement
-- one correlated set of workflow, Bead, event, agent, and session identifiers
-- artifact packaging and provenance return to Asana
-- explicit proof that no specialist agent performed an external write
+### Not yet demonstrated or not currently revalidated
 
-The current session-snapshot and store-status latency is an operational warning. It is not a substitute for the actual smoke test.
+- current post-reboot service/store/session state
+- production `draft-technical-blog` route/claim/session recovery for `building-matt-city-blog-001`
+- current state of workflow pointer `mc-069` and outline attempt `mc-417`
+- production outline and draft generation
+- production-path session replacement without lost durable work state
+- regression/acceptance coverage across supported workflows
+- production artifact packaging and provenance return
+- current confirmation that no specialist agent performed an unauthorized external write
 
-## Phase 1 runtime acceptance
+The August strategist/session investigation showed an important split: targetless hook discovery could find `mc-417`, while `hook --claim` still returned `drain/no_work`; later nudge attempts stalled before delivery or queue persistence. PR #13 merged a bounded PATH fix for fresh editorial-strategist sessions, but the runtime was rebooted before a post-fix fresh-session result was captured. That fix must not be described as proven runtime remediation until the local environment is revalidated and tested.
 
-Phase 1 is complete only after a fresh workflow demonstrates:
+## Phase 1 acceptance state
 
-- unique request and workflow identifiers
-- successful Formula V2 materialization
-- correct route and concrete claim
-- specialist execution with dependency ordering
-- terminal step and workflow states
-- durable Bead state across session replacement
-- provenance containing Asana, Gas City, Beads, session, and Git identifiers
-- artifact return to the originating Asana task
-- no unauthorized specialist-agent external writes
+The baseline lifecycle acceptance case has passed through Smoke Test #3. Phase 1 as a project phase remains open because production recovery, session-replacement evidence, regression coverage, operator documentation, and durable request/context handling are still incomplete.
+
+The current gate is:
+
+1. read-only post-reboot Git/runtime reconciliation
+2. inspect `mc-069`, `mc-417`, strategist/control sessions, artifact existence, and claimability
+3. preserve evidence
+4. recover the production editorial workflow through the supported path
+5. produce and validate the expected local article artifacts and provenance
 
 Any conflict between this document and current official Gas City documentation must be resolved in favor of the official documentation, with the decision recorded in Asana and reflected in GitHub.
