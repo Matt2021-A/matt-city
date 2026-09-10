@@ -1,7 +1,7 @@
 # Matt City Project Roadmap
 
 - Status: Active
-- Updated: 2026-07-20
+- Updated: 2026-09-10
 - Canonical human roadmap: [Matt City project roadmap and phase gates](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216740612789172)
 - Canonical project: [Matt City in Asana](https://app.asana.com/1/1204112251101459/project/1216444827581484)
 
@@ -9,7 +9,7 @@
 
 This document is the versioned project roadmap for Matt City.
 
-It covers the complete system rather than treating any one component, including Phoenix, as the project itself. Detailed task state, decisions, approvals, comments, and human ownership remain canonical in Asana. This file records the implementation sequence, phase gates, architecture boundaries, and deferred work in Git.
+It covers the complete system rather than treating any one component as the project itself. Detailed task state, decisions, approvals, comments, and human ownership remain canonical in Asana. This file records implementation sequence, phase gates, architecture boundaries, and deferred work in Git.
 
 Matt City is being built as an identity-aware work system with six connected concerns:
 
@@ -22,31 +22,39 @@ Matt City is being built as an identity-aware work system with six connected con
 
 ## Current project gate
 
-The immediate gate is a fresh bd-backed Formula V2 workflow:
+Smoke Test #3 is complete. It demonstrated the tested local bd-backed Formula V2 lifecycle through:
 
 ```text
-Formula: research-topic
-Request ID: phase-1-smoke-test-003
-Branch: fix/restore-bd-provider
-Lifecycle: cook -> route -> claim -> execute -> package -> finalize
+cook -> route -> claim -> execute -> package -> finalize
 ```
 
-Asana task: [Smoke Test #3: Fresh bd-backed end-to-end workflow](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216740708489953)
+That result is retained as Phase 1 baseline evidence. It is not the current gate.
 
-This run must create new workflow and session objects. It must not repair, reuse, or delete retained evidence from earlier smoke tests.
+The current operational gate is recovery of production request `building-matt-city-blog-001` under [Stabilize research-to-draft workflow for building-matt-city-blog-001](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216777414350711).
 
-Success requires:
+Last durable recorded production state:
 
-- a fresh Formula V2 graph in the managed bd/Dolt store
-- supported routing to the qualified run operator
-- concrete specialist sessions claiming their own work
-- correct dependency, retry, outcome, and finalization behavior
-- local artifacts and reconstructable provenance
-- links back to the canonical Asana task and Git state
-- no unauthorized external access or write
-- either successful completion or a stable, fully evidenced failure
+```text
+Request: building-matt-city-blog-001
+Formula: draft-technical-blog
+Workflow pointer: mc-069
+Recorded outline attempt: mc-417
+Repository base: main
+Latest main consolidation: PR #13 / 733d811199cea3c00bf30e3e993c3a624021c1f9
+```
 
-Phoenix and other new telemetry dependencies are excluded from this baseline run.
+The August runtime investigation ended after an unapproved Windows Update reboot on August 23, 2026. The Debian WSL runtime has not been directly revalidated since that reboot. Therefore service state, live versions, sessions, `mc-069`/`mc-417` state, claimability, and local worktree state are unknown until a fresh read-only local capture is performed.
+
+The next safe sequence is:
+
+1. Reconcile the local Git worktree to current remote truth without deleting untracked evidence.
+2. Revalidate Gas City paths/version resolution and the two user services.
+3. Run bounded health inspection.
+4. Inspect `mc-069`, `mc-417`, strategist/control sessions, artifact existence, and claimability.
+5. Preserve the capture.
+6. Only then decide whether the existing durable workflow can resume or a replacement execution attempt is required.
+
+Do not launch a duplicate workflow, manually claim work, force-route downstream steps, clean untracked state, or make destructive store changes merely to advance the graph.
 
 ## Phase 0: Foundation and operating model
 
@@ -62,12 +70,12 @@ Status: Substantially complete.
 - work-object mapping across Asana, Gas City, Beads, sessions, artifacts, and Git
 - provenance schema
 - approval and external-write boundary
-- Debian 13 WSL2 runtime
+- Debian WSL2 runtime baseline
 - native Docker Engine inside Debian
-- Gas City supervisor and automatic systemd startup
+- Gas City supervisor and automatic systemd startup baseline
 - Codex provider registration
 - Matt City Pack v2, local run operator, specialist agents, and Formula V2 configuration
-- managed bd/Dolt data plane restored as the active architecture
+- managed bd/Dolt data plane restored as the intended architecture
 
 ### Foundation rule
 
@@ -77,16 +85,21 @@ A new component must fit the existing authority model. It does not gain ownershi
 
 Status: Active.
 
-### Objectives
+### Demonstrated
 
-- complete the fresh bd-backed end-to-end workflow
-- prove route, claim, execution, dependency, retry, outcome, and finalization behavior
-- prove durable workflow state survives session replacement
+Smoke Test #3 demonstrated a fresh bd-backed workflow with concrete route, claim, specialist execution, packaging, provenance, and terminal finalization for the tested path.
+
+### Remaining objectives
+
+- complete read-only post-reboot runtime reconciliation
+- stabilize production editorial route/claim/session behavior
+- prove durable workflow state survives session replacement in the production path
+- complete regression and acceptance coverage
 - capture workflow, Bead, event, agent, session, provider, Git, artifact, and approval identities together
-- produce and validate local artifacts and provenance
+- produce and validate local production artifacts and provenance
 - formalize the reusable request and context-package format
-- complete the operator manual and reusable smoke-test runbook
-- document the current slow status/session snapshot path without destructive cleanup
+- complete the operator manual and reusable smoke-test/recovery runbook
+- characterize slow status/session snapshot behavior without destructive cleanup
 - preserve failed and superseded workflow evidence
 
 ### Exit gate
@@ -95,13 +108,15 @@ Phase 1 exits when a new operator can reconstruct and operate a normal workflow 
 
 ### Canonical work
 
-- [Smoke Test #3](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216740708489953)
+- [Production editorial workflow stabilization](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216777414350711)
+- [Smoke Test #3, completed baseline evidence](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216740708489953)
 - [Create Matt City Operator's Manual](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216647357424303)
+- [Build Matt City workflow regression and acceptance test suite](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216777394352544)
 - [Build Asana-first context package format](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216444828181081)
 
 ## Phase 2: Observability and operator experience
 
-Status: Planned after the Phase 1 execution gate.
+Status: Planned after the Phase 1 execution and production-workflow baseline is stable.
 
 ### Design
 
@@ -117,66 +132,38 @@ Phoenix is the primary Phase 2 interface for everything it represents naturally:
 - trace-derived latency, error, usage, model, token, and cost signals where available
 - comparison across workflow, prompt, model, provider, and configuration revisions
 
-Phoenix does not own:
-
-- workflow routing
-- claim or assignment state
-- durable workflow state
-- authorization
-- human approval
-- canonical provenance
-- source artifacts
-- infrastructure truth
-
-Gas City, Beads/Dolt, Asana, and GitHub remain authoritative for those concerns.
+Phoenix does not own workflow routing, claim state, durable workflow state, authorization, human approval, canonical provenance, or source artifacts.
 
 ### Operator surfaces
 
 The initial operator experience combines rather than duplicates existing surfaces:
 
 - Phoenix for workflow traces, AI behavior, evaluations, and trace-derived signals
-- Gas City CLI, API, and built-in views for formulas, workflows, Beads, routing, agents, sessions, orders, and events
+- Gas City and Beads/Dolt for authoritative workflow and session state
 - Asana for human work, decisions, blockers, and approval
 - GitHub for versioned implementation and approved artifacts
-- systemd, journald, Docker, process, filesystem, and direct store inspection for basic infrastructure troubleshooting
-
-The Matt City dashboard work should provide coherent navigation, correlation, summaries, and degraded-state handling across those surfaces. It should not rebuild Phoenix trace and evaluation views merely to create a custom cockpit.
+- systemd, journald, Docker, process, filesystem, and direct store inspection for infrastructure troubleshooting
 
 ### Grafana decision
 
-Grafana, Prometheus, Loki, Tempo, or equivalent operational stacks are deferred until Matt City demonstrates an unmet requirement for one or more of the following:
-
-- continuous host or container metrics
-- centralized log aggregation and search
-- alerting
-- service-level reporting
-- independent operational retention
-- correlation across multiple non-AI services at a scale direct tools cannot handle
-
-OpenTelemetry compatibility preserves that option without requiring it during the first Phoenix deployment.
+Grafana, Prometheus, Loki, Tempo, or equivalent operational stacks remain deferred until Matt City demonstrates an unmet requirement for continuous host/container metrics, centralized logs, alerting, service-level reporting, independent operational retention, or cross-service correlation at a scale direct tools cannot handle.
 
 ### Phase 2 sequence
 
-1. Keep the uninstrumented Phase 1 baseline as evidence.
+1. Preserve the uninstrumented Phase 1 baseline as evidence.
 2. Finalize the metadata-first privacy and trace schema.
 3. Deploy a pinned Phoenix version locally in Debian Docker.
 4. Instrument a separate fresh workflow through OpenTelemetry/OpenInference.
 5. Prove telemetry failure cannot stop or redefine execution.
 6. Add deterministic evaluations.
 7. Connect Phoenix traces to canonical Asana, Git, workflow, Bead, session, and artifact records.
-8. Wire the dashboard/operator tasks around Phoenix and proven Gas City surfaces.
+8. Wire dashboard/operator tasks around Phoenix and proven Gas City surfaces.
 9. Document retention, access, backup, upgrades, health, and degraded behavior.
 10. Add a separate operational stack only when a documented gap justifies it.
 
-### Canonical work
-
-- [Implement Phoenix as Matt City's AI observability and evaluation plane](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216732585597325)
-- [Implement Matt City operator dashboard and observability integration](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216477412200438)
-- [Add cost, health, audit, and operational reporting](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216444828063721)
-
 ## Phase 3: Core context and content workflows
 
-Status: Design active, implementation gated by Phase 1.
+Status: Design and production bridge active; implementation remains gated by the Phase 1 production-workflow recovery.
 
 ### Objectives
 
@@ -187,16 +174,9 @@ Status: Design active, implementation gated by Phase 1.
 - implement reusable approval, rejection, requested-change, timeout, and escalation states
 - design the read-only Context Agent after the manual bounded-retrieval model is stable
 
-### Exit gate
+### Current production acceptance case
 
-A complete content workflow can produce a reviewed local artifact and stop at the external-write boundary with every contribution and approval reconstructable.
-
-### Canonical work
-
-- [Build TechThatMattRs workflow](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216444887413796)
-- [Define Asana context retrieval model](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216444723633271)
-- [Build Context Agent](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216445116969545)
-- [Define approval and escalation workflow in Asana](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216444723497848)
+`building-matt-city-blog-001` is the first real content-production acceptance case. Its approved editorial brief and story map already exist, and Matthew approved local outline/draft execution on July 21, 2026. The system must produce a recognizable draft through Matt City before any external transfer or publication is considered.
 
 ## Phase 4: Governed integrations and synchronization
 
@@ -218,12 +198,6 @@ Status: Deferred until the core workflow and approval model are proven.
 - no external write follows merely from local execution approval
 - publication remains separate from draft creation
 - applications, messages, deletion, permission changes, and consequential writes require explicit approval
-
-### Canonical work
-
-- [Design Asana integration principal and permission scope](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216444723524067)
-- [Implement bidirectional Asana and Gas City synchronization](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216444723735803)
-- [Add draft-only publishing integrations](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216444723687460)
 
 ## Phase 5: Workflow expansion
 
@@ -248,11 +222,6 @@ Status: Future.
 - sensitivity inventory before business-system access
 - explicit approval before customer, household, financial, publishing, or messaging actions
 
-### Canonical work
-
-- [Build career workflow](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216444723633287)
-- [Build social and business workflows](https://app.asana.com/1/1204112251101459/project/1216444827581484/task/1216444723380034)
-
 ## Phase 6: Operational hardening
 
 Status: Continuous, with major work after Phases 1 and 2.
@@ -271,9 +240,7 @@ Status: Continuous, with major work after Phases 1 and 2.
 - service and runtime naming migration only through a documented rollback plan
 - security review for every new integration or state-changing interface
 
-## Cross-cutting workstreams
-
-These are not separate roadmap phases. They apply to every phase.
+## Cross-cutting rules
 
 ### Identity and authorization
 
@@ -310,7 +277,7 @@ The following are not current implementation gates:
 - autonomous state-changing dashboard controls
 - Grafana-class operational stack without a documented need
 - Wasteland or multi-city federation
-- runtime host renaming during the current smoke-test cycle
+- runtime host renaming during the current recovery cycle
 - destructive store cleanup performed only to remove warnings
 
 ## Roadmap maintenance
